@@ -1,0 +1,742 @@
+\documentclass{article}
+
+\usepackage[english]{babel}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsthm}
+
+\usepackage[letterpaper,top=2cm,bottom=2cm,left=3cm,right=3cm,marginparwidth=1.75cm]{geometry}
+\usepackage{graphicx}
+\usepackage[colorlinks=true, allcolors=blue]{hyperref}
+\usepackage{fancyhdr}
+\usepackage{tikz}
+\usetikzlibrary{decorations.markings,calc}
+\usepackage{tikz-cd}
+\usepackage{quiver}
+\usetikzlibrary{matrix}
+\usepackage[most]{tcolorbox}
+\usepackage{hyperref}
+\usepackage{array}
+\usepackage{colonequals}
+\usepackage{todonotes}
+\usepackage{cleveref}
+
+\font\maljapanese=dmjhira at 2.5ex
+\newcommand{\yo}{\textrm{\!\maljapanese\char"48}}
+
+\newtheorem{theorem}{Theorem}[section]
+
+\theoremstyle{definition}
+\newtheorem{definition2}[theorem]{Definition}
+
+
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{example}[theorem]{Example}
+\newtheorem{examples}[theorem]{Examples}
+
+
+\theoremstyle{remark}
+\newtheorem*{remark}{Remark}
+\newtheorem*{notation}{Notation}
+
+\theoremstyle{plain}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{conjecture}[theorem]{Conjecture}
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{lemma}[theorem]{Lemma}
+
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\mb}[1]{\mathbb{#1}}
+\newcommand{\mc}[1]{\mathcal{#1}}
+\newcommand{\mk}[1]{\mathfrak{#1}}
+\newcommand{\m}{\mathfrak{m}}
+\newcommand{\un}{\cup}
+\newcommand{\ic}{\cap}
+\pagestyle{fancy}
+\newcommand\size{1}% distance of nodes from center
+
+\usepackage{microtype}
+
+\usepackage{caption}
+\captionsetup[figure]{labelformat=empty}%
+
+\begin{document}
+
+\title{The Hasse-Minkowski Theorem}
+
+\maketitle
+
+\tableofcontents
+
+\section{Introduction}
+
+
+\section{Background}
+
+Here $K$ will always denote a finite extension of $\Q_p$ (in our case we are interested in the completion of a number field at a nonzero prime). Let $\mc{O}_K$ denote its corresponding discrete valuation ring with maximal ideal $\mk{m}$ and residue field $k$.
+
+
+\begin{proposition}
+	For any family of polynomials $f^{(i)} \in \mc{O}_K [X_1, \dots, X_m]$,
+	Then the following are equivalent
+	\begin{enumerate}
+		\item The $f^{(i)}$ have a common zero in $(\mc{O}_K)^m$.
+		\item For all $n > 1$ the polynomials $f^{(i)} (\bmod{\,\mk{m}^n})$ have a common zero in 
+	$(\mc{O}_K/\mk{m}^n)^m$
+\end{enumerate}	
+\end{proposition}
+
+\begin{proof}
+	1 implies 2 by simply taking the simple zero modulo $\mk{m}^n$.
+	Since $K$ is a finite extension of $\Q_p$, its residue field is finite, and so $\mc{O}_K / \mk{m}^n$ is finite for each $n > 1$.
+	Therefore, to show 2 implies 1 it suffices to show that if $ \dots \to D_n \to D_{n-1} \to \dots \to D_1$ is a projective system, where each $D_i$ is finite and nonempty, then $D = \varprojlim D_i$ has a solution, by taking the limit over solutions mod $\mk{m}^n$.
+	Denoting $D_{n,p}$ the image of $D_{n+p}$ in $D_n$, then they form a decreasing filtration of subsets of $D_{n}$. As $D_n$ is finite these must stabilize to some subset $E_n$. The map $D_{n+1} \to D_n$ carries $E_{n+1} \to E_n$ and are surjective, from definition.
+	A solution can then always be found in $D$ by inductively lifting one among the $E_i$.
+\end{proof}
+
+\begin{remark}
+	If $f^{(i)}$ are all homogeneous polynomials, note the nonzero solutions in $(\mc{O}_K)^m$ defined up to a scalar. 
+	So if $(x_1, \dots, x_m)$ is a nonzero solution in $K^m$, then choosing an element $y$ such that $v(y) = \text{min}(v(x_1), \dots, v(x_m))$, we have that $(y^{-1} x_1, \dots, y^{-1} x_m)$ is another solution (now guaranteed to be in $\mc{O}_K^m$) such that one coefficient is invertible in $\mc{O}_K$. 
+	We will call such a solution \textit{primitive} (following \cite{ACIA}), similarly defined in $\mc{O}_K/\m^n$.
+\end{remark}
+
+\begin{corollary}
+	If $f^{(i)} \in \mc{O}_K [X_1, \dots, X_m]$ are all homogeneous, then the following are equivalent
+	\begin{enumerate}
+		\item The $f^{(i)}$ have a common non-zero in $(K)^m$.
+		\item The $f^{(i)}$ have a common primitive zero in $(\mc{O}_K)^m$.
+		\item For all $n > 1$ the polynomials $f^{(i)} (\bmod{\,\mk{m}^n})$ have a common primitive zero in 
+	$(\mc{O}_K/\mk{m}^n)^m$
+\end{enumerate}	
+\end{corollary}
+
+
+\begin{lemma}\label{lemm:hensel}
+	Let $f \in \mc{O}_K[X]$ and $f'$ its derivative.
+	If $x \in \mc{O}_K$, with $n,k \in \Z$ satisfying $0 \leq 2k < n$ and $f(x) \equiv 0 \pmod{\m^n}, v(f'(x)) \equiv k$.
+	Then one can always find $y \in \mc{O}_K$ satisfying 
+	\[f(y) \equiv 0 \pmod{\m^{n+1}},\quad v(f'(y)) \equiv k, \quad y = x \pmod{\m^{n-k}}\]
+\end{lemma}
+
+\begin{proof}
+	This proof uses the same idea as the proof of Hensel's lemma, and we sketch it here. 
+	If $\pi$ is an uniformizer for $K$, by our assumptions we may write $f(x) = \pi^n a, f'(x) = \pi^k u$, with $a, u \in \mc{O}_K$ and $u$ invertible.
+	Since $y \equiv x \pmod{p^{n-k}}$ we suspect $y$ to be of the form $x + p^{n-k}z$ or $z \in \mc{O}_K$.
+	After expanding out, we have for some $b \in \mc{O}_K$ that 
+\begin{align*}
+	f(y) = f(x) + p^{n-k}z f'(x) + p^{2n - 2k} b =    p^n(a + uz) +  p^{2n - 2k} b
+\end{align*}
+We may choose $z$ such that $a + uz \equiv 0 \pmod{\m}$, and since $2n - 2k > n$ we have $f(y) \equiv 0 \pmod{\m^{n+1}}$.
+Expanding the same way for $f'(y)$ shows that $f'(y) \equiv p^k u \pmod{p^{n-k}}$ and so $v(f'(y)) \equiv k$ still, as we wanted.
+\end{proof}
+
+This allows us to lift solutions mod $\m^n$ in many ways as we describe using the following theorem.
+
+\begin{theorem}\label{theo:hensel}
+	Let $f \in \mc{O}_K[X_1, \dots, X_m]$, $x = (x_i) \in (\mc{O}_K)^m$	with $n,k \in \Z$ satisfying $0 \leq 2k < n$ and $0 \leq j \leq m$ an index such that
+	\[f(x) \equiv 0\pmod{\m^{n+1}},\quad v( \frac{\partial f}{ \partial X_j}(x)) = k\]
+	Then $f$ has a zero $y \in (\mc{O}_K)^m$ congruent to $x \pmod{\m^{n-k}}$
+\end{theorem}
+\begin{proof}
+	If $m = 1$ we easily reduce to \Cref{lemm:hensel}. 
+	Letting $x_0 = x$, we obtain an $x_1$ from $x$ and in general a $x_i, i > 1$ such that $f(x_i) \equiv 0 \pmod{\m^{n+i}}$ amd $y = x \pmod{\m^{n-k + i}}$.
+	This defines a Cauchy sequence $x_i$ whose limit is a zero satisfying our required conditions. \newline
+	\indent The case when  $m > 1$  reduces to the first case, as letting $\overline{f} \in \mc{O}_K[X_j]$ be $f$ with $X_i$ substituted with $x_i$ for $i \neq j$, satisfies our above conditions for some $y_j \equiv x_j \pmod{\m^{n-k}}$.
+	Then $y$, equal to $(x_i)$ but with $x_j$ switched with $y_j$ is a zero satisfying our requirements as wanted.
+\end{proof}
+
+This theorem gives us some existence theorems for zeros in many special cases of interest to us. 
+
+\begin{corollary}\label{cor:simple-zero-lift}
+	A simple zero $\overline{x}$ of $f^{(i)} \pmod{\m}$ always lifts to a zero $x$ in $(\mc{O}_K)^m$.
+	(Here simple implies one of the partial derivates is nonzero at $\overline{x}$).
+\end{corollary}
+ 
+\begin{proof}
+	Indeed, lifting the $\overline{x}_i$ to any $x_i \in \mc{O}_K$ such that $\overline{x}_i  = x_i \pmod{\m}$, then $x = (x_i)$ satisfies the condition of \Cref{theo:hensel} for $n=1, k=0$, as the $j$ for which the partial at $\overline{x}_j \neq 0$ then satisfies $v(x_j) = 0$.
+\end{proof}
+
+In the case of quadratic forms $Q(x) = \sum a_{ij} X_i X_j$ (for which we always take the symmetric representative where $a_{ij} = a_{ji}$), the lifting of solutions depends on the characteristic of the residue field $k$.
+
+\todo{discriminant def needed here?}
+\begin{corollary}\label{cor:char-not-2-lift}
+	Suppose char $k \neq 2$. If $Q(x)$ is a quadratic form and $b \in \mc{O}_K$, we have that any primitive solution $x$ such that of $Q(x) - b \equiv 0 \bmod{\m}$ lifts to one in $(\mc{O}_K)^m$ if $x$ does not annihilate all of $\frac{\partial Q}{\partial X_j} $ modulo $\m$. 
+	This condition is fulfilled if $\text{det}(a_{ij})$ is invertible.
+\end{corollary}
+
+\begin{proof}
+	Note that $ \frac{\partial Q}{\partial X_j} = 2 \sum_i a_{ij} X_j$ is the twice the $j$th entry of matrix product $(a_{ij}) x$. 
+	By our assumption that $x$ doesn't annihilated every partial, at least one entry must be nonzero modulo $\m$ and we are done by \Cref{cor:simple-zero-lift}.
+	This condition is satisfied when $\text{det}(a_{ij})$ as $x$ is nonzero being primitive, so $(a_{ij}) x \neq 0$ modulo $\m$. 
+\end{proof}
+
+When char $k = 2$ the previous argument doesn't work as $2 = 0$.
+The best alternative is considering solutions mod $\m^n$ for sufficient $n$ such that $\mc{O}_K /\m^n$ is not of characteristic 2.
+The smallest such $n$ will depend on the ramification of $\mc{O}_K$ over $\Q_2$.
+
+\begin{corollary}
+	Suppose char $k = 2$ and denote $e$ the ramification index of $K/\Q_2$. 
+	If $Q(x)$ is a quadratic form and $b \in \mc{O}_K$, we have that any primitive solution $x$ such that of $Q(x) - b \equiv 0 \bmod{\m^{2e + 1}}$ lifts to one in $(\mc{O}_K)^m$ if $x$ does not annihilate all of $\frac{\partial Q}{\partial X_j} $ modulo $\m^{e+1}$. 
+	This condition is similarly fulfilled if $\text{det}(a_{ij})$ is invertible.
+
+\end{corollary}
+
+\begin{proof}
+	The proof is analogous to \Cref{cor:char-not-2-lift}, noting that $e+1$ is the smallest value for which $2 \neq 0$ in $\mc{O}_k/\m^{e+1}$.
+	We thus require non-zero partials modulo $\m^{e+1}$, whose valuation is at most $e$.
+	As in the notation of \Cref{theo:hensel}, we thus have $k \leq n$ and requiring $0 \leq 2k < n$, we see $n = 2e + 1$ is the smallest choice for which we may always lift a solution to $(\mc{O}_K)^m$. 
+\end{proof}
+
+
+\subsection{The Multiplicative Group of $K$}
+
+Following the notation of \cite{LF} we will denote $U_K^{(i)} = 1 + \m_K^i$, which defines a filtration of $U_K^{(0)} = U_K$ the group of invertible elements of $K$. 
+By Proposition 6 in \cite{LF} IV.2, we have that $U_K^{(0)}/U_K^{(1)}\cong k^*$, and $U_K^{(i)}/U_K^{(i+1)} \cong \m^i/\m^{i+1}$, which is (non-canonically) isomorphic to the additive group of the residue field $k$.
+If $|k| = p^f$ we have by induction that $U_K^{(1)}/U_K^{(n)}$ is of order $p^{f(n-1)}$.
+
+\begin{lemma}\label{lemm:exact-seq-splitting}
+	An exact sequence  $0 \to A \to E \to B \to 0$ of commutative groups, with the orders $|A|$ and $|B|$ relatively prime must split.
+In the decomposition $E \cong A \oplus B$, $B$ must also be unique, being those $x \in E$ with order dividing $|B|$.
+\end{lemma}
+
+\begin{proof}
+	We outline a proof given in \cite{ACIA}, II.3.
+Uniqueness of $B$ follows easily, as any other subgroup $B'$ of $E$ isomorphic to $B$ must be annihilated by $|B|$ so $B' \subset B$ and so must be equal as they are finite. 
+And using the fact  $|A|, |B|$ are relativily prime, \todo{Fill out }
+\end{proof}
+
+\begin{proposition}
+	We have $U_K \cong \mu_{(p^f - 1)} \times U_K^{(1)}$, where $\mu_{(p^f - 1)}$ are the $(p^f - 1)$st roots of unity in $K$.
+\end{proposition}
+
+\begin{proof}
+	\todo{Take limit using above propositions}
+\end{proof}
+
+
+
+
+
+\section{The Hilbert Symbol}
+
+In this section we will define the Hilbert symbol (over any field), but our particular interest will once again be finite extensions $K$ of $\Q_p$ and $\R$. \todo{maybe $\C$ as well?}
+
+\begin{definition}[Hilbert Symbol]
+For any field $F$, and $a,b \in F^*$ we define the \textit{Hilbert Symbol} of $a$ and $b$ (relative to $F$) as 
+\[(a,b) =
+\left\{
+	\begin{array}{ll}
+		1  & \mbox{if $z^2 -ax^2 -by^2 - 0$ has a nonzero solution in $F^3$} \\
+		-1 & \mbox{otherwise }
+	\end{array}
+\right.\]
+\end{definition}
+
+\begin{remark}
+	Since $a,b$ lie in a field the Hilbert symbol $(a,b)$ doesn't change when multiplying either $a,b$ by squares in $F^*$, so this is well-defined on $F^*/F^{*^2}$.
+\end{remark}
+
+\begin{proposition}
+	Let $a,b \in F^*$ and let $F_b = F(\sqrt{b})$.
+	Then $(a,b) = 1$ if and only if $a$ belongs to the group $N F_b^*$ of norms of elements in $F^*b$.
+\end{proposition}
+
+\begin{proof}
+	\cite{ACIA} page 19,29.
+\end{proof}
+
+\newpage
+
+
+\section{Quadratic Spaces}
+
+We will work over an arbitrary field $K$ in this section, assumed to be of characteristic different from 2. \newline
+
+\indent	A \textit{quadratic form} over a field $K$ is a homogeneous polynomial in $n$ variables over $K$, which is homogeneous of degree 2.
+A quadratic form $f$ can be expressed as $f(X_1, \dots, X_n) = \sum_{i,j = 1}^n a_{ij} X_i X_j$
+where we may take the averages of $a_{ij}$ and $a_{ji}$ (as char$(K)$ is not 2) and assume they are equal, so that $f$ determines a unique symmetric matrix $M_f = (a_{ij})$.
+In this way, letting $X = (X_1, \dots, X_n)$ we have, in matrix notation that $f(X) = X^T  M_f  X$.\newline
+
+\indent Two quadratic forms $f,g$ are said to be \textit{equivalent} (which we denote as $f \sim g$) if there exists an invertiible matrix $C \in \text{GL}_n(K)$ such that $f(X) = g(C  X)$.
+Now since 
+\[g(C  X) = (C X)^T M_f (C  X) = X^T  (C^T  M_g  C)  X\]
+equivalence of quadratic forms amounts to congruence of their associated matrices $M_f$ up to transformations of the form $C^T  M_g \ C, C \in \text{GL}_n(K)$.
+
+\begin{example}\label{ex:hyperbolic-plane}
+	Consider the quadratic form $f = X_1X_2$ in two variables. 
+	Under the linear change of coordinates $X_1 =  Y_1  + Y_2, X_2 = Y_1 - Y_2$ we see our new equivalent form expressed in terms of $Y_1, Y_2$ is $(Y_1 + Y_2)(Y_1 - Y_2)  = Y_1^2 - Y_2^2$.
+\end{example}
+
+We now give a more geometric way of interpreting quadratic forms by defining quadratic spaces. 
+
+\begin{definition}[Quadratic Space]
+	A \textit{quadratic space} is a pair $(V,B)$ where $V$ is a finite-dimensional vector space over $K$, and $B: V \times V \to K$ a symmetric bilinear form.
+\end{definition}
+
+The bilinear pairing $B$ defines a map $Q: V \to K$ by sending $v \in V$ to $B(v,v)$.
+It is in fact a \textit{quadratic map} as it satisfies 
+\[Q(ax) = B(av, av) = a^2 B(v,v) = a^2 Q(x)\]
+and 
+\[Q(x+y) - Q(x) - Q(y) = B(x+y,x+y) - B(x,x) - B(y,y) = 2 B(x,y)\]
+is a bilinear form.
+Then it is clear that $Q$ also determines $B$ via $B = \frac{1}{2}(Q(x+y) - Q(x) - Q(y))$, so we may also equivalently write $(V,Q)$ for the corresponding quadratic space. \newline
+
+\indent Choosing a basis $e_1, \dots, e_n$ for $V$ defines a quadratic form $f = \sum_{i,j = 1}^n B(e_i, e_j) X_i X_j$ for which evaluation at $x \in K^n$ is exactly our quadratic map $Q$.
+Any different choice of basis $e'_1, \dots, e'_n$ is related by a change of coordinates matrix $C$, so its corresponding quadratic form $f'$ is equivalent to $f$. 
+Hence a quadratic space uniquely determines an equivalence class of quadratic forms which we denote as $(f_B)$. Conversely, any $n$-ary quadratic form determines a quadratic space over $K^n$ via its natural evaluation map. 
+ 
+
+\begin{definition}[Metric Morphism]
+	A map $\phi: (V,B) \to (V', B')$ of quadratic spaces is called a \textit{metric morphism} if $\forall x,y \in V$ we have $B'(\phi(x), \phi(y)) = B(x,y)$.
+\end{definition}
+
+\todo{Remark on name?}
+This naturally defines a category whose objects are quadratic spaces over $K$, and morphisms being metric morphisms. If $(V,B)$ and $(V',B')$ are isomorphic in this category (which we denote as $(V,B) \cong (V',B'))$, it is clear from our above correspondence that $(f_B) \cong (f_{B'})$.
+From now on in this section using this equivalence, we will tend to think more coordinate-freely through quadratic spaces, whose results then can be translated as above to those of quadratic forms.
+
+\begin{definition}[Nondegeneracy]
+	For $(V,B)$ a quadratic space, and $M$ the corresponding symmetric matrix to some form in the eqivalence class $(f_B)$, then $(V,B)$ is called \textit{nondegenerate} if the folowign equivalent conditions hold
+	\begin{enumerate}
+		\item $M$ is an invertible matrix.
+		\item $B$ defines a perfect pairing, i.e. the map $x \to B(-,x)$ defines an isomorphism between $V$ and its dual space $V^*$
+	\end{enumerate}	
+\end{definition}
+
+Now note that any subspace $S$ of $V$ has, by restriction of $B$ (equivalently $Q$), the structure of a quadratic space.
+The \textit{orthogonal complement} of $S$ is defined as usual
+\[S^{\perp} = \{v \in V \,|\, B(v,S) = 0\}\]
+The orthogonal complement of $V$ itself, $V^{\perp} = \text{rad } V$ is called the \textit{radical} of $V$.
+
+\begin{proposition}\label{prop:nondeg-ss-dim}
+	Let $(V,B)$ be a nondegenerate quadratic space and $S$ a subspace of $V$.
+	Then
+	\begin{enumerate}
+		\item $\text{dim}(S) + \text{dim}(S^{\perp}) = \text{dim}(V)$
+		\item $(S^{\perp})^{\perp} = S$
+	\end{enumerate}
+	
+\end{proposition}
+\begin{proof}
+	From the isomorphism $\phi: V \to V^*$ defined by the pairing $B$, note that $S^{\perp}$ is precisely the subspace of functionals which annihilate $S$.
+	By duality, we have that 
+	\[\text{dim}(S^{\perp}) = \text{dim}(V^*) - \text{dim}(\phi(S)) = \text{dim}(V) - \text{dim}(S)\]
+	since $\phi$ is an isomorphism, establishing the first result. \newline
+
+	\indent For the second result, it suffices to note that $(S^{\perp}))^{\perp} \subset S$ (under the usual canonical isomorphism $V \cong (V^*)^*$ and each $s \in S$ is 0 under those functionals in $S^{\perp}$).
+	However, from the first results we have 
+	\[\text{dim}((S^{\perp}))^{\perp}) = \text{dim}(V) - \text{dim}(S^{\perp}) = \text{dim}(V) - (\text{dim(V)} - \text{dim}(S)) = \text{dim}(S)\]
+	so they must be equal as their dimensions are equal and one is contained in the other.
+\end{proof}
+
+\subsection{Diagonalization of Quadratic Forms}
+
+In this section, we will be giving an useful representative of each equivalence class of quadratic forms, established via an "orthogonal basis" with respect to a bilinear form.
+
+\begin{definition}[Representability]
+	Let $f$ be a quadratic form over $K$, and $d \in K^{\times}$.
+Then we say $f$ \textit{represents} $d$ if there exists some (necessarily nonzero) $X \in K^n$ such that $f(X) = d$.
+\end{definition}
+
+Note that the set of representable values of a quadratic form only depends on its equivalence class, so we can further say a quadratic space $(V,B)$ represents $d$ if any of its associated quadratic forms represents $d$.
+
+\begin{definition}[Orthogonal Sums]
+	If $(V_1, B_1)$ and $(V_2, B_2)$ are quadratic spaces, then we may form their \textit{orthogonal sum}, a quadratic space $V_1 \perp V_2 = (V_1 \oplus V_2, B)$ where $B$ is the pairing given by $B((x_1, x_2), (y_1, y_2)) = B_1(x_1, y_1) + B_2(x_2, y_2)$.
+\end{definition}
+
+\begin{remark}
+	The corresponding quadratic map of $V_1 \perp V_2$ satisfies $Q(x_1, x_2) = B((x_1, x_2), (x_1, x_2)) = B_1(x_1, x_2) + B_2(x_1, x_2) = Q_{B_1}(x_1) + Q({B_2}(x_2)$.
+Choosing a basis for $V$ (so defining a quadratic form), we see that the notion of orthogonal sum for quadratic forms $f$ and $g$ corresponds to adjoining them in separate variables.
+We will refer to this operation as $f + g$.
+\end{remark}
+
+\begin{notation}
+	We shall denote the $\langle d \rangle$ for the isometry class of 1-dimensional quadratic spaces corresponding to the quadratic form $d X^2$.
+\end{notation}
+
+\begin{proposition}\label{prop:rep-criterion1}
+	Let $(V,B)$ be a quadratic space, and $d \in K^{\times}$. Then $(V,B)$ represents $d$ if and only if there exists another space $(V',B')$ such that $V \cong V' \perp \langle d \rangle$. 
+\end{proposition}
+
+\begin{proof}
+	If $V \cong V' \perp \langle d \rangle$ then $V$ represents $d$ as $\langle d \rangle$ clearly does. \newline
+	\indent Conversely, assume that $V$ respresents $d$.
+	We first show that we may assume that $V$ is non-degenerate.
+	Indeed, consider any subspace $W \subset V$ such that $W \oplus \text{rad} V = V$.
+	Since $\text{rad}(V)$ is orthogonal to all of $V$ we have furthermore that $V = W \perp \text{rad}(V)$.
+	As noted, the quadratic map associated to $V$ are then defined as the composites of those associated to $W$ and $\text{rad}(V)$ (the latter identically zero), so any quadratic form associated to $V$ takes nonzero values only on $W$.
+	Hence we may restrict ourself to $W$ which is non-degenerate. \newline
+	\indent Now since $W$ represents $d$, there exists $v \in W$ such that $Q(v) = d$.
+	Then the $K \cdot v \cong \langle d \rangle$ ($K \cdot v$ denotes the one-dimensional subspace spanned by $v$).
+	As $d \neq 0$, no nonzero element in $K \cdot v$ is orthogonal to another, hence $(K \cdot v) \ic (K \cdot v)^{\perp} = 0$.
+	But by \Cref{prop:nondeg-ss-dim} we have $\text{dim}(K \cdot v) + \text{dim}((K \cdot v)^{\perp}) = \text{dim}(W)$ so therefore 
+	\[W = (K \cdot v)^{\perp} \perp (K \cdot v) \cong (K \cdot v)^{\perp} \perp \langle d \rangle\]
+	as wanted.
+\end{proof}
+
+Translating this into the language of quadratic forms we obtain the following corollary.
+
+\begin{corollary}\label{coroll:rep-criterion1}
+	If a quadratic form $f$ represents $d$, then there exists a quadratic form $f'$ such that $f \sim f' + dZ^2$
+\end{corollary}
+
+\begin{corollary}\label{coroll:orthogonal-basis}
+	If $(V,B)$ is any quadratic space, then there exists $d_1, \dots, d_n \in K$ such that $V \cong \langle d_1 \rangle \perp \dots \perp \langle d_n \rangle$. 
+\end{corollary}
+ \begin{proof}
+	We induct on the dimension of $V$.
+	It is trivial when $V$ is zero-dimensional.
+	Otherwise, suppose $\text{dim}(V) = n > 0$.
+	If $V$ doesn't represent any non-zero values it is the orthogonal sum of $\langle 0 \rangle$'s.
+	Otherwise, it represents some $d \in K^{\times}$ and so by \Cref{prop:rep-criterion1} we have $V \cong \langle d \rangle \perp V'$, for $V'$ of smaller dimension.
+	Thus if $V' = \langle d_1 \rangle \perp  \dots\perp \langle d_{n-1} \rangle$ from our induction hypothesis we have that $V \cong \langle d \rangle \dots \langle d_1\rangle \perp \dots \perp \langle d_{n-1} \rangle$ as desired.
+ \end{proof}
+
+From the equivalence between isomorphism classes of quadratic space and equivalence classes of quadratic forms, the above theorem gives us the folllowing result for quadratic forms. 
+
+ \begin{corollary}
+ 	Any quadratic form $f$ is equivalent to one of the form $d_1 X_1^2 + \dots + d_n X_n^2$
+ \end{corollary}
+ 
+ \begin{remark}
+ 	The $d_1, \dots, d_n$ are not unique, even up to reordering. However, one can show they are unique up to something called chain equivalence, see \cite{ATOQF}, I.5 for details.
+ \end{remark}
+ 
+ \begin{notation}
+ 	We shall denote $\langle d_1 \rangle \perp \dots \perp \langle d_n \rangle$ as $\langle d_1, \dots, d_n \rangle$.
+	If all the $d_i$ are nonzero, we shall say the corresponding quadratic form $f = d_1 X_1^2 + \dots + f_n X_n^2$ is of \textit{rank} $n$.
+\end{notation}
+
+ \begin{proposition}\label{prop:nondegen-decomp}
+	If $(V,B)$ is a quadratic space and $S$ a nondegenerate subspace, then $V = S \perp S^{\perp}$	
+\end{proposition}
+ 
+\begin{proof}
+	Note that $S \ic S^{\perp}$ is from definitions $\text{rad }(S)$, but as $S$ is nondegenerate we have that $S \ic S^{\perp} = 0$.
+	So it suffices to show that $S \oplus S^{\perp} = V$.
+	From \Cref{coroll-orthogonal-basis} we can choose an orthogonal basis $s_1, \dots, s_k$ for $S$ 
+	For any $v \in V$ we explicitly construct the "orthogonal projection" of $v$ onto $S$, which we define as 
+	\[y = v - \sum_{i = 1}^{k} \frac{B(v, s_i)}{B(s_i, s_i)} s_i\]
+Then $y$ is orthogonal to $s$, as for any $s_j$ we explicitly verify that 
+\begin{align*}
+	B(y, s_j) = B(v, s_j) - \sum_{i = 1}^{k} \frac{B(v, s_j)}{B(s_i, s_i)} B(s_i, s_j) = B(v, s_i) -  \frac{B(s_j, s_j)}{B(s_j, s_j)}B(v,s_i) = 0 
+\end{align*}
+as the $s_i$ are all orthogonal to each other. 
+Thus $y \in S^{\perp}$ and $v = y + \sum_{i = 1}^{k} \frac{B(v, s_i)}{B(s_i, s_i)} s_i \in S \oplus S^{\perp}$ shows they span $V$ as we want.
+\end{proof}
+
+We are now in good shape to define a major invariant associated to a quadratic form.
+
+\begin{definition}[Discriminant]
+	For a quadratic form $f$, let $M_f$ be its correpsonding symmetric matrix. 
+	Then the \textit{discriminant} $d(f)$ is defined as 
+	\[d(f) = \text{det}(M_f) \in K^{\times}/ (K^{\times})^2\]
+\end{definition}
+
+We note that the discriminant is indeed well-defined in $K^{\times}/ (K^{\times})^2$ (The \textit{group of square classes}) as for any $M_g$ for an equivalent quadratic form $g$ we have 
+\[\text{det}(M_g) = \text{det}(C^T M_f C) = \text{det}(C)^2 d(f)\]
+for some invertible matrix $C$, hence it is a well-defined element in the group of square classes.
+We may then also talk about the discriminant of a quadratic space $d(V)$ from its corresponding equivalence class of quadratic forms.\newline
+
+\indent For a quadratic form in a diagonal form $f =  d_1 X_1^2 + \dots + d_n X_n^2$ the matrix $M_f$ is diagonal with entries $d_i$, so its discriminant is easily calculated as $d_1 \dots d_n \in K^{\times}/ (K^{\times})^2$.
+
+ \subsection{The Hyperbolic Plane}
+
+
+ \begin{definition}
+ 	We call a nonzero vector $v$ in a quadratic space $(V,B)$ \textit{isotropic} if $Q(v) = B(v,v) = 0$, otherwise $v$ is \textit{anisotropic}.
+	The quadratic space $(V,B)$ is \textit{isotropic} if it contains an isotropic vector, otherwise it is \textit{anisotropic}.
+ \end{definition}
+
+ \begin{theorem}[Hyperbolic Plane]
+ 	Let $(V,B)$ be a 2-dimensional quadratic space, then the following are equivalent
+	\begin{enumerate}
+		\item $V$ is nondegenerate and isotropic
+		\item $V$ is regular, with $d(V) = -1$
+		\item $V \cong \langle 1, -1 \rangle$ 
+	\end{enumerate}
+	The isometry class of such spaces is called the \textit{hyperbolic plane}, which we denote as $\mb{H}$.
+ \end{theorem}
+
+ \begin{proof}
+	We first show that $1. \to 2.$. Choose $e_1, e_2$ an orthogonal basis for $V$. 
+	As $V$ is nondegenerate we have that both $Q(e_1) = d_1$ and $Q(e_) = d_2$ are both nonzero.
+	As $V$ is isotropic, there exists an isotropic vector $ae_1 + be_2$.
+	Then 
+	\begin{align*}
+		0 = Q(ae_1 + be_2) = ad_1^2 + bd_2^2 \Rightarrow d_1^2 = \frac{-b}{a} d_2^2
+	\end{align*}
+	Now $ \frac{-b}{a} = -ba = -d(V)$ in $K^{\times}/(K^{\times})^2$ so the above says that $d(V) = - (\frac{d_1}{d_1})^2 = -1$ in the group of square classes. \newline 
+
+	\indent Next we show $2. \to 3.$. 
+	Consider any diagonalization of $V$. Its corresponding quadratic form $f = a X_1^2 + b X_2^2$ has $ab = -1$, thus $a = -b$ in the group of square classes. 
+	But from \Cref{ex:hyperbolic-plane} we have $f \sim a Y_1 Y_2$, a form which clearly represents any element in $K^{\times}$, in particular 1.
+	Now \Cref{prop:rep-criterion1} gives us $V \cong \langle 1 \rangle \perp V'$, and from our previous observation we must have $V' \cong \langle -1 \rangle$ as we wanted. \newline
+
+	\indent $V$ is clearly non-degenerate as its corresponding symmetric matrix is invertible. 
+	Now $(x, x)$ is an isotropic vector in $\langle 1, -1 \rangle$ for any $x \in K$ so $V$ is isotropic as well, concluding the proof.
+ \end{proof}
+
+ \begin{remark}
+	 As we outlined in the proof, note that \Cref{ex:hyperbolic-plane} shows that $\mb{H}$ has corresponding equivalence class of quadratic forms containing the form $X_1 X_2$, perhaps why the name is called hyperbolic.
+ \end{remark}
+ 
+\begin{proposition}
+	A nondegenerate quadratic space $(V,B)$ is isotropic iff $V$ contains a hyperbolic plane, in which case $V$ represents all of $K^{\times}$.
+\end{proposition}
+
+\begin{proof}
+	If $V$ contains a hyperbolic plane, it is isotropic as $\mb{H}$ is isotropic by the previous theorem.
+	Conversely, if $(V,B)$ is a nondegenerate quadratic space that is isotropic, we have that a nonzero $v \in V$ such that $B(v,v)$ is zero.
+	As $V$ is nondegenerate, there is (by the isomorphism $V \to V^*$ defined by $B$) a nonzero element $z$ such that $B(v,z) = 1$.
+	Then consider $y = z - \frac{B(z,z)}{2}v$. 
+	It is linearly independent from $v$ as $z$ is (any multiple of $v$ has $B(kv,v) = kB(v,v) = 0$). 
+	Furthermore 
+	\begin{align*}
+		B(y,y) = B(z - \frac{B(z,z)}{2}v,z - \frac{B(z,z)}{2}v) &= B(z,z) - B(z,z) B(v,z) + \frac{B(z,z)^2}{4}B(v,v)\\
+																&= B(z,z) - B(z,z)\\
+																&= 0
+	\end{align*}
+and 
+\begin{align*}
+	B(y,v) = B(z,v) - \frac{B(z,z)}{2}B(v,v) = B(z,v) = 1
+\end{align*}
+so the quadratic form $f$ corresponding to the $Kv \oplus Ky$ is $2X_1X_2 \sim X_1X_2$ (once again as char $K$ is different from 2) so $V$ contains a hyperbolic plane $\mb{H}$ as claimed. \newline
+
+\indent Finally, to show that $V$ represents all of $K^{\times}$ in the above cases it suffices to show that $\mb{H}$ does. 
+But as noted, the quadratic form $X_1X_2$ lying in the equivalence class of forms for $\mb{H}$ clearly does so $\mb{H}$ does as we want.
+\end{proof}
+
+Translating this into the language of quadratic forms we obtain the following corollary.
+
+\begin{corollary}
+	If $f$ is a nondegenerate quadratic form representing 0, then $f \sim f_1 + g$ where $f_1$ is hyperbolic ($f_1 \sim X_1^2 - X_2^2 \sim X_1 X_2$). 
+	Moreover $f$ is isotropic and represents all of $K^{\times}$.
+\end{corollary}
+
+\begin{proposition}\label{prop:represent-prop1}
+	A nondegenerate quadratic form $Q$ represents $d \in K^{\times}$ iff $Q \perp \langle -d \rangle$ is isotropic.
+\end{proposition}
+\begin{proof}
+	We may assume that $Q = d_1 X_1^2 + \dots  + d_n X_n^2$ in which case recall that $Q \perp \langle -d \rangle \sim d_1 X_1^2 + \dots  + d_n X_n^2 - dZ^2$ for a new variable $Z$.
+	If $Q$ represents $d$, so that $Q(x) = d$ for some $x \in K^n$, then 
+	\[(Q \perp \langle -d \rangle)(x,1) = Q(x) + \langle -d \rangle(1) = d - d = 0\]
+	shows that $Q \perp \langle -d \rangle$ is isotropic. \newline
+\indent Conversely, suppose that $Q \perp \langle -d \rangle$ is isotropic, so that $(Q \perp \langle -d \rangle)$ evaluated at $(x_1, \dots, x_n, y) = 0$.
+If $y = 0$, then $(x_1, \dots, x_n) \neq 0$ and also $Q(x_1, \dots, x_n) = 0$.
+Hence $Q$ is isotropic by our previous proposition and represents all of $K^{\times}$ and $d$ in particular.
+Otherwise, $y \neq 0$ and we have 
+\[Q(x_1, \dots, x_n) = dy^2 \Rightarrow Q(x_1/y, \dots, x_n/y) = d\]
+so $Q$ still represents $d$ as wanted.
+\end{proof}
+
+\subsection{Witt's Cancellation Theorem} 
+
+\begin{theorem}\label{theo:geometric-witt-cancel}
+	If $(V, B)$ and $(V', B')$ are isomorphic and non-degenerate, then every injective metric morphism $s: U \to V'$ from a subvector space $U$ of $V$ can be exteneded to a metric isomorphism of $V$ onto $V'$.
+\end{theorem}
+
+\begin{proof}
+	We first show we can reduce to the case where $U$ is non-degenerate by showing that $s$ extends to a map $s': U' \to V$, such that $s'|_{U} = s$ and $U'$ contains $U$ and is one-dimension larger.
+	In this case, we can keep on extending $s$ to morphisms from larger subspaces until it is either all of $V$ (and we are done) or a nondegenerate subspace. 
+	Indeed, if $U$ is degenerate choose a nonzero $x \in \text{rad}(U)$. 
+	Consider any linear form $\ell \in U^*$ such that $\ell(x) = 1$.
+	By the nondegeneracy of $V$ (hence the natural isomorphism $V \to V^*$) there is a $y$ such that $\ell(u,y) = B(y,u)$ for all $u \in U$.
+	In particular $y$ cannot lie in $U$ as it is not orthogonal to $x \in \text{rad}(U)$ so that $U \oplus Ky$ contains $U$ and is one-dimension larger.
+Up to replacing $y$ by $y - \frac{B(y,y)}{2}x$ we may also assume that $B(y,y) = 0$. \newline
+\indent We may then apply the same construction to the subspace $s(U)$, element $s(x)$ and linear form $\ell' = \ell \circ s^{-1}$ to obtain an element $y'$ and the space $s(U) \oplus Ky'$.
+We cali the linear map $\phi: U \oplus Ky \to U' \oplus Ky'$ which is the same as $s$ on $U$ and maps $y$ to $y'$ is our desired one.
+It suffices to show it is a metric morphism.
+Indeed, for any $u + by \in U \oplus Ky$ we have that 
+\begin{align*}
+	B'(\phi(u + by), \phi(u + by)) &= B'(\phi(u), \phi(u)) + 2 B'(\phi(u), \phi(by)) + B'(\phi(by), \phi(by))\\
+								   &= B(u,u) + 2b B'(\phi(u), \phi(y)) + b^2 B'(\phi(y), \phi)y))\\
+								   &= B(u,u)
+\end{align*}
+from our construction, which shows the reduction. \newline
+
+\indent 
+Now assuming that $U$ is nondegenerate, we show our theorem by induction on the dimension of $U$.
+As $V \cong V'$, we assume by a little abuse of notation that $V = V'$ and $B = B'$ so that $s$ is an automorphism of $V$.
+When $\text{dim}(U) = 1$ and $U$ is nondegenerate is is generated by an anisotropic element $x$.
+As $s$ is metric we have $B(x,x) = B(y,y)$, and since 
+\[B(x \pm y, x \pm y) = 2B(x,x) \pm 2B(x,y)\]
+cannot be 0 for both $\pm 1$ (otherwise $B(x,x) = 0$ one of $x \pm y$ is also anisotropic. 
+Up to replacing $y$ with $-y$ we may assume $x + y$ is.
+Then the linear map $\sigma: V \to V$ such that
+\[\sigma(v) = v - \frac{2B(v, x+y)}{B(x+y, x+y)} (x+y)\]
+sends $(x+y)$ to $-(x+y)$ and is the identity on $K(x+y)^{\perp}$.
+Now $(y-x) \in K(x+y)^{\perp}$ so 
+\[\sigma(x) = \frac{1}{2}\sigma((x+y) + (x-y)) = \frac{1}{2} (-x - y) + (x - y) = -y\]
+so $-\sigma$ is a metric automorphism extending $s$. \newline
+\indent Now when $\text{dim}(U) > 1$, consider any anisotropic $y \in U$.
+By \Cref{prop:nondegen-decomp} we have $U = Ky \perp (Ky)^{\perp}$. 
+From the case as above there exists an automorphism $\sigma$ of $V$ extending the map on $Ky$.
+Then $\sigma^{-1} s : U \to V$ is the identity on $Ky$ and since it is metric (being the composite of two metric morphisms) on $U$, it must maps $Ky^{\perp}$ onto $V'$, the orthogonal complement of $U$ in $V$. By our inductive hypothesis this extends to a map $\phi': (Ky)^{\perp} \to V$. 
+Then the linear map $\varphi$ defined as the identity on $Ky$ and is $\phi'$ on $(Ky)^{\perp}$ extends $\sigma^{-1}s$ so $\varphi \circ \sigma$ is an extension of $s$ as desired.
+\end{proof}
+
+Applying the above theorem to the language of quadratic forms we obtain the following corollary.
+
+\begin{corollary}
+	Let $f = g + h$ and $f' = g' + h'$. If $f \sim f'$ and $g \sim g'$ then $h \sim h'$.
+\end{corollary}
+\begin{proof}
+	If $f \sim f'$ are $n$-ary quadratic forms, then the corresponding quadratic spaces on $K^n$ are isomorphic.
+	Then $g \sim g'$ gives an isomorphism from their corresponding spaces, which from the above theorem extends to an isomorphism between the $K^n$.
+	Restricting the isomorphism to the subspaces defined by $h$ and $h'$ gives us our result.
+\end{proof}
+
+
+\subsection{Quadratic Forms over Finite Fields}
+
+With the results given on quadratic forms, we believe this is the best time to present the following results regarding those over finite fields $\mb{F}_q$, for $q = p^n$ for some prime $p$.
+
+\begin{proposition}
+	A quadratic form over $\mb{F}_q$ of rank $\geq 2$  (respectively $\geq 3$) represents all elements of $\mb{F}_q^{\times}$ (respectively $\mb{F}_q$).
+\end{proposition}
+ 
+\begin{proof}
+	If $q = 2^n$, then $\mathbb{F}_q$ is of char 2 and the Frobenius $x^2$ is an isomorphism. 
+	In particular quadratic forms of rank $\geq 1$ in this case must always represent all of $\mathbb{F}_q$ so we may assume that $p$ is an odd prime.\newline 
+
+	\indent We first show the statement for quadratic forms of rank $\geq 2$.
+	It of course suffices to do it for rank 2 as higher ranks can only represent more values.
+	Let $d \in \mathbb{F}_q^{\times}$.
+		We will pair off each $x \in \Z/p\Z$ with the residue class $- (d+x) \in \Z/p\Z$ (so that their sum is $-d \bmod{p}$).
+The only value paired with itself is then $ \frac{d}{2}$, giving us a total of $ \frac{p+1}{2}$ such pairs.
+Now among the $ \frac{p-1}{2}$ quadratic residues in $( \Z /p\Z)^*$, if $\frac{d}{2}$(now an element of $\Z/p\Z$) is among them, say $a^2 = \frac{d}{2}$ then $a^2 + a^2 \equiv \frac{d}{2} +  \frac{d}{2} \equiv d \bmod{p}$.
+Otherwise, if $\frac{d}{2}$  is not a quadratic residue, the $ \frac{p-1}{2}$ quadratic residues, along with $0$, are the $ \frac{p-1}{2} + 1$ distinct values in $\Z/p\Z$ which are squares of integers. 
+Without the pair consisting of just $\frac{d}{2}$, there are $\frac{p-1}{2}$ pairs, so by pigeonhole there must be one pair $(x,y)$ with both values a square, and the solutions to $a^2 = x, b^2 = y$ then have $a^2 + b^2 \equiv d \bmod{p}$ by construction. \newline
+
+The statement for quadratic forms of rank $\geq 3$ once again reduces to just the case for forms of rank $3$.
+From our previous result is suffices to show that all quadratic forms $f$ over $\mb{F}_q$ are isotropic.
+If it is identically zero this is clear otherwise  there is a $x \in K^3$ such that $f(x) = d \neq 0$.
+But then from \Cref{coroll:rep-criterion1} we have $f \sim f' + dZ^2$, where $f'$ is of rank 2. 
+But we know $f'$ represents $-d$, so $f$ must be isotropic as claimed.
+\end{proof}
+
+So quadratic forms of rank 2 over $\mathbb{F}_q$ always represent all of $K^{\times}$, such fields with this property have a nice characterization of their quadratic forms as we show.
+
+\begin{theorem}
+	Let $K$ be a field where all quadratic forms of rank 2 represent $K^{\times}$.
+	Then every quadratic form of rank $n$ has $|K^{\times}/(K^{\times})^2|$ equivalence classes corresponding to one of the forms
+	\[X_1^2 + \dots X_{n-1}^2 + d X_n^2\]
+for $d$ representatives of $K^{\times}/(K^{\times})^2$. 
+In particular, the rank and discriminant uniquely determine the equivalence class of the quadratic form.
+\end{theorem}
+
+\begin{proof}
+This is clear if $n = 1$.
+For $n \geq 2$ our previous proposition shows it represents $1$ so by \Cref{coroll:rep-criterion1} it is equivalent to $X_1^2 + g$ for $g$ of rank $n-1$, and our inductive hypothesis proves the statement.
+The representative class $d$ in $K^{\times}/(K^{\times})^2$ is then the discriminant of our form, and so uniquely deterimines it.
+\end{proof}
+
+\begin{corollary}
+	There are exactly two equivalence classes of rank $n$ quadratic forms over a finite field $\mb{F}_q$.
+\end{corollary}
+\begin{proof}
+	This follows as $|\mathbb{F}_q^{\times}/ (\mathbb{F}_q^{\times})^2| = 2$ as its multiplicative group is cyclic.
+\end{proof}
+
+
+
+\section{Quaternion Algebras}
+
+We define the quaternion algebra here. 
+
+\begin{proposition}[Basic Facts]
+	We record some basic facts about quaternion algebras here
+\begin{enumerate}
+	\item$( \frac{a,b}{K})  = ( \frac{ax^2,by^2}{K}), \quad a,b,x,y \in K^{\times}  $
+	\item The center of $( \frac{a,b}{K})$  is $K$ (the $K$-span of $1$).
+	\item $( \frac{a,b}{K})$ is a simple algebra.
+	\item $( \frac{-1,1}{K}) \cong \mb{M}_2(K)$ (The $2 \times 2$ matrices over $K$) 
+\end{enumerate}
+\end{proposition}
+
+\begin{proof}
+	
+\end{proof}
+
+\begin{definition}[Pure Quaternions]
+	
+\end{definition}
+
+
+\begin{corollary}[Pure Quaternions get sent to pure quaternionsn]
+	
+\end{corollary}
+
+We now make quaternions into a quadratic space. 
+
+\begin{definition}[Norm and Trace]
+	
+\end{definition}
+
+\begin{proposition}[Orthognla Basis/QF on Quaternion]
+	
+\end{proposition}
+
+\begin{proposition}[Algebra/Quadratic Spcae equivalence]
+	The follow 
+\end{proposition}
+\begin{proof}
+	
+\end{proof}
+
+
+\begin{theorem}[8 Statements]
+	
+\end{theorem}
+\begin{proof}
+	
+\end{proof}
+
+\section{Quadratic Forms Over Number Fields}
+
+In this section, $R$ will denote a complete discrete valuation ring a finite extension of $\Q_p$ (i.e. the completion of a number field at a prime), $\mc{O}_R$, $k$, $\pi$, $U$,  the set of places, and so on. 
+
+\begin{theorem}[Stronger Hensel's]
+	
+\end{theorem}
+
+\begin{theorem}[Local Square theorem]
+	For a
+\end{theorem}
+
+\begin{corollary}[Units in non-dyadic valuation rings ]
+	
+\end{corollary}
+
+\begin{corollary}[$R^{\times}$ is an open subgroup]
+	
+\end{corollary}
+
+\section{Hasse-Minkowski Theorem}
+
+
+
+\begin{theorem}[Hasse-Minkowski]
+	
+\end{theorem}
+
+a
+\begin{proof}
+	
+\end{proof}
+
+\begin{corollary}[representing non-zero elements]
+	
+\end{corollary}
+
+
+\section{Selmer's Example}
+
+
+\bibliographystyle{plain}
+\bibliography{lib}
+\end{document}
