@@ -222,33 +222,8 @@ And using the fact  $|A|, |B|$ are relativily prime, \todo{Fill out }
 
 
 
-\section{The Hilbert Symbol}
 
-In this section we will define the Hilbert symbol (over any field), but our particular interest will once again be finite extensions $K$ of $\Q_p$ and $\R$. \todo{maybe $\C$ as well?}
 
-\begin{definition}[Hilbert Symbol]
-For any field $F$, and $a,b \in F^*$ we define the \textit{Hilbert Symbol} of $a$ and $b$ (relative to $F$) as 
-\[(a,b) =
-\left\{
-	\begin{array}{ll}
-		1  & \mbox{if $z^2 -ax^2 -by^2 - 0$ has a nonzero solution in $F^3$} \\
-		-1 & \mbox{otherwise }
-	\end{array}
-\right.\]
-\end{definition}
-
-\begin{remark}
-	Since $a,b$ lie in a field the Hilbert symbol $(a,b)$ doesn't change when multiplying either $a,b$ by squares in $F^*$, so this is well-defined on $F^*/F^{*^2}$.
-\end{remark}
-
-\begin{proposition}
-	Let $a,b \in F^*$ and let $F_b = F(\sqrt{b})$.
-	Then $(a,b) = 1$ if and only if $a$ belongs to the group $N F_b^*$ of norms of elements in $F^*b$.
-\end{proposition}
-
-\begin{proof}
-	\cite{ACIA} page 19,29.
-\end{proof}
 
 \newpage
 
@@ -418,7 +393,7 @@ From the equivalence between isomorphism classes of quadratic space and equivale
 \begin{proof}
 	Note that $S \ic S^{\perp}$ is from definitions $\text{rad }(S)$, but as $S$ is nondegenerate we have that $S \ic S^{\perp} = 0$.
 	So it suffices to show that $S \oplus S^{\perp} = V$.
-	From \Cref{coroll-orthogonal-basis} we can choose an orthogonal basis $s_1, \dots, s_k$ for $S$ 
+	From \Cref{coroll:orthogonal-basis} we can choose an orthogonal basis $s_1, \dots, s_k$ for $S$ 
 	For any $v \in V$ we explicitly construct the "orthogonal projection" of $v$ onto $S$, which we define as 
 	\[y = v - \sum_{i = 1}^{k} \frac{B(v, s_i)}{B(s_i, s_i)} s_i\]
 Then $y$ is orthogonal to $s$, as for any $s_j$ we explicitly verify that 
@@ -452,7 +427,7 @@ We may then also talk about the discriminant of a quadratic space $d(V)$ from it
 	The quadratic space $(V,B)$ is \textit{isotropic} if it contains an isotropic vector, otherwise it is \textit{anisotropic}.
  \end{definition}
 
- \begin{theorem}[Hyperbolic Plane]
+ \begin{theorem}[Hyperbolic Plane]\label{theo:hyperbolic-plane}
  	Let $(V,B)$ be a 2-dimensional quadratic space, then the following are equivalent
 	\begin{enumerate}
 		\item $V$ is nondegenerate and isotropic
@@ -485,7 +460,7 @@ We may then also talk about the discriminant of a quadratic space $d(V)$ from it
 	 As we outlined in the proof, note that \Cref{ex:hyperbolic-plane} shows that $\mb{H}$ has corresponding equivalence class of quadratic forms containing the form $X_1 X_2$, perhaps why the name is called hyperbolic.
  \end{remark}
  
-\begin{proposition}
+ \begin{proposition}\label{prop:isotropic-hyperbolic}
 	A nondegenerate quadratic space $(V,B)$ is isotropic iff $V$ contains a hyperbolic plane, in which case $V$ represents all of $K^{\times}$.
 \end{proposition}
 
@@ -532,6 +507,16 @@ Hence $Q$ is isotropic by our previous proposition and represents all of $K^{\ti
 Otherwise, $y \neq 0$ and we have 
 \[Q(x_1, \dots, x_n) = dy^2 \Rightarrow Q(x_1/y, \dots, x_n/y) = d\]
 so $Q$ still represents $d$ as wanted.
+\end{proof}
+
+We conclude this section with a fact about quadratic forms we will need to use later in the proof of the Hasse-Minkowski theorem, but for which we do not have the space to give it an adequate context or proof.
+
+\begin{proposition}
+	Let $f$ is a four-dimensional quadratic form over a field $K$ of discriminant $d$.
+	Then $f$ is isotropic over $K(\sqrt{d})$ if and only if it is isotropic over $K$.
+\end{proposition}
+\begin{proof}
+	See \cite{ATOQF}, (V.3.24) and (VII.3.1)
 \end{proof}
 
 \subsection{Witt's Cancellation Theorem} 
@@ -582,7 +567,7 @@ Then the linear map $\varphi$ defined as the identity on $Ky$ and is $\phi'$ on 
 
 Applying the above theorem to the language of quadratic forms we obtain the following corollary.
 
-\begin{corollary}
+\begin{corollary}\label{coroll:alg-witt-cancel}
 	Let $f = g + h$ and $f' = g' + h'$. If $f \sim f'$ and $g \sim g'$ then $h \sim h'$.
 \end{corollary}
 \begin{proof}
@@ -645,7 +630,7 @@ The representative class $d$ in $K^{\times}/(K^{\times})^2$ is then the discrimi
 
 
 
-\section{Quaternion Algebras}
+\section{Quaternion Algebras and Hilbert Symbols}
 
 
 There are analogous constructions of the usual quaternions (over the reals) to an arbitrary field $K$ still of characteristic different from 2.
@@ -667,7 +652,7 @@ We now record some basic facts regarding quaternion algebras.
 	\item$( \frac{a,b}{K})  = ( \frac{ax^2,by^2}{K}), \quad a,b,x,y \in K^{\times}  $
 	\item $( \frac{-1,1}{K}) \cong \mb{M}_2(K)$ (The $2 \times 2$ matrices over $K$) 
 	\item The center of $( \frac{a,b}{K})$  is $K$ (the $K$-span of $1$).
-	\item $( \frac{a,b}{K})$ is a simple algebra.
+	\item $( \frac{a,b}{K})$ is a simple algebra (no two-sided proper ideals).
 \end{enumerate}
 \end{proposition}
 
@@ -678,47 +663,323 @@ We now record some basic facts regarding quaternion algebras.
 	It suffices then to show that $1,i,j$ and $k = \begin{bmatrix} 1 & 0 \\ 0 & -1 \end{bmatrix}$ span $\mb{M}_2(K)$ as a $K$-vector space in which case the isomorphism is given on generators as above.
 	Indeed, we have $\begin{bmatrix} a & b \\ c & d \end{bmatrix} = \frac{a+d}{2}1 + \frac{b -c}{2}i + \frac{b+c}{2}j + \frac{a -d }{2}k$ shows surjectivity, and  if $x1 + yi + zj + wk = \begin{bmatrix} x+w & z+y \\ z-y & x-w \end{bmatrix} = \begin{bmatrix} 0 & 0 \\ 0 & 0 \end{bmatrix}$, then as $K$ is of characteristic not 2 the system of equations gives us $x = y = z = w = 0$ showing injectivity.\newline
 	\indent For 3. and 4. let $\overline{K}$ be the algebraic closure of $K$ and note that $\overline{K} \otimes_K \qa{a}{b}$ = $(\frac{a,b}{\overline{K}})$.
-	Every element is a square in $\overline{K}$, so from both results 1. and 2. we conclude that $(\frac{a,b}{\overline{K}}) \cong \mb{M}_2(\overline{K})$. 
+	Every element is a square in $\overline{K}$, so from both results 1. and 2. we conclude that $(\frac{a,b}{\overline{K}}) \cong \mb{M}_2(\overline{K})$.
+	We know the center $Z(\mb{M}_2(\overline{K}))$ are just the scalars $\overline{K} \cdot 1$.
+	Any element in its center must lie in the center $\qa{a}{b} \subset \mb{M}_2(\overline{K})$. Conversely, an element is in $Z(\qa{a}{b})$ if and only if it commutes with $\{1,i,j,k\}$ which is independent of the base field, so  $Z(\qa{a}{b})  = Z(\mb{M}_2(\overline{K})) \ic \qa{a}{b}$ so must also be a scalar in $K$ showing 3. \newline
+	\indent If $I$ were a proper two-sided ideal of $\qa{a}{b}$, then it is also a $K$-vector space of dimension less than 4. 
+	Then $I \otimes_K \overline{K}$ is also a two-sided ideal of $\mb{M}_2(\overline{K}))$ which is proper as it has the same dimension. 
+	As $\mb{M}_2(\overline{K}))$ is a simple algebra this is impossible, so $\qa{a}{b}$ is also simple.
 \end{proof}
+
 
 \begin{definition}[Pure Quaternions]
-	
+	A quaternion $\alpha + \beta i + cj + dk \in A = \qa{a}{b}$ is called a \textit{pure quaternion} if $\alpha = 0$.
+	The set of pure quaternions in $A = \qa{a}{b}$ will be denoted as $A_0$.
 \end{definition}
 
+We show there is a "basis free" interpretation of pure quaternions. 
 
-\begin{corollary}[Pure Quaternions get sent to pure quaternionsn]
-	
+\begin{proposition}
+	A nonzero $v$ is a pure quaternion if and only if $v \notin K$ and $v^2 \in K$.
+\end{proposition}
+
+\begin{proof}
+	Direct calculation shows that if $v = \alpha + \beta i + cj + dk$, then 
+	\begin{align*}
+		v^2 = (\alpha^2 + a \beta^2 + b c^2 -abd^2) + 2a(\beta i + cj + dk)
+	\end{align*}
+If $v$ is a nonzero pure quaternion then $v \notin K$, then $\alpha = 0$ so the above must be a scalar in $K$.
+Conversely, if $v \notin K$ as above, one of $\beta, c ,d$ must be nonzero, so for the above square to be 0 we must have $2\alpha = 0$, so $\alpha = 0$ (once again as char $K$ different from 2) so $v$ is a nonzero pure-quaternion.
+\end{proof}
+
+\begin{corollary}\label{coroll:pure-quaternions}
+	If $A = \qa{a}{b}$ and $A' = \qa{a'}{b'}$, then any $K$-algebra isomorphism $\phi: A \to A'$ restricts to an isomorphism $A_0 \to A'_0$ between the pure quaternions.
 \end{corollary}
 
-\subsection{The Quaternions as a Quadratic Space}
-We now make quaternions into a quadratic space. 
+\begin{proof}
+	Given the purely algebraic characterization from the proceeding proposition, $\phi$ must map $A_0$ into $A'_0$.
+	However, as $A$ is a simple algebra by \Cref{prop:basic-facts}, 4. $\phi$ must be injective.
+	As both $A_0$ and $A'_0$ are three-dimensional over $K$ we conclude the map must also be surjective.
+\end{proof}
+
+\subsection{Quaternions as Quadratic Spaces}
+We now make quaternions into a quadratic space.
+For a quaternion $x = \alpha + \beta i + cd + jk$ we define its conjugate $\overline{x} = \alpha - \beta i - cd - jk$.
+The conjugation operation is "almost" an algebra automorphism in that it commutes with addition and scaling by $K$, but in general reverses order of multiplication in that $\overline{(xy)} = \overline{y}\, \overline{x}$.
+Note for any pure quaternion $y$ that $\overline{y} = -y$.
 
 \begin{definition}[Norm and Trace]
-	
+	For $x \in \qa{a}{b}$, we define the \textit{norm} of $x$ as $x \overline{x}$ and the \textit{trace} of $x$ as $x + \overline{x}$.  
 \end{definition}
 
-\begin{proposition}[Orthognla Basis/QF on Quaternion]
-	
+We will define the quadratic space structure on $(\qa{a}{b}, B)$ by giving it a symmetric bilinear form, which explicitly is $B(x,y) = \frac{1}{2}(x \overline{y} + y \overline{x})$. 
+As
+\[\overline{B(x,y)} = \overline{\frac{1}{2}(x \overline{y} + y \overline{x})} = \frac{1}{2}(\overline{x} y + \overline{y} x) = B(x,y)\]
+it is preserved by conjugation and so indeed takes values in the field $K$.
+Bilinearity and symmetry are similarly straightforward checks, so this is indeed a well-defined form.
+
+\begin{proposition}
+	The quadratic space $(\qa{a}{b}, B)$ has an orthogonal basis $\{1, i, j, k\}$ and is isomorphic to $\langle 1, -a, -b, ab \rangle$.
 \end{proposition}
 
-\begin{proposition}[Algebra/Quadratic Spcae equivalence]
-	The follow 
-\end{proposition}
 \begin{proof}
-	
+	For any pure quaternion 
+	For any $y \in \{i,j,k\}$ we have $B(1,y) = \frac{1}{2}(y - y) = 0$.
+	And if $w,z$ are any two pure quaternions we have, in general, that 
+	\[B(w,z) = \frac{1}{2}(w \overline{z} + z \overline{w}) = -\frac{1}{2}(w z + z w)  \]
+	so $w,z$ are orthogonal if and only if they anti-commute, hence $i,j,k$ are also mutually orthogonal hence $\{1,i,j,k\}$ is an orthogonal basis for $B$. 
+	This orthogonal basis then gives us the desired isomorphism as we have 
+	\[B(1,1) = 1, \quad B(i,i) = -i^2 = -a, \quad\quad B(j,j) = -j^2 = -b, \quad \quad B(k,k) = -k^2 = ab\]
 \end{proof}
 
+\begin{remark}
+	From the diagonalization above, if $x = \alpha + \beta i + cd + dk \in \qa{a}{b}$  then $N(x) = \alpha^2 - a\beta^2 - b c^2 + d^2ab$.
+\end{remark}
 
-\begin{theorem}[8 Statements]
+As is the case with with the usual quaternions over the reals, we see that the norm is multiplicative, and hence gives an useful condition for checking invertibility of elements. 
+
+\begin{proposition}\label{prop:invertibility}
+	Consider any $x,y \in \qa{a}{b}$. Then  
+	\begin{enumerate}
+		\item $N(xy) = N(x)N(y)$ 
+		\item $x$ is invertible if and only if $N(x) \neq 0$
+	\end{enumerate}
+\end{proposition}
+\begin{proof}
+	We straightforwardly verify, noting that $y \overline{y}$ is a scalar in $K$ and so lie in the center, that 
+	\[N(xy) = (xy) \overline{(xy)} = x(y \overline{y}) \, \overline{x} =  (y \overline{y}) (x \overline{x}) = N(x)N(y)\]
+	Now if $x$ is invertible, say $xy = 1$ we have $1 = N(1) = N(xy) = N(x)N(y)$ so $N(x) \neq 0$.
+	Conversely, if $N(x) = k$, then $x^{-1} = \frac{\overline{x}}{k}$ since $x \frac{\overline{x}}{k} = \frac{x \overline{x}}{k} = \frac{N(x)}{k} = 1$.
+\end{proof}
+
+We now show that algebraic equivalence of quaternionic algebras is equivalent to the more geometric notion of being isomorphic as a quadratic space, more or less a consequence of the quadratic map $N(-)$ being defined algebraically.
+
+\begin{proposition}
+	Let $A = \qa{a}{b}$ and $A' = \qa{a'}{b'}$, then the following are equivalent.
+	\begin{enumerate}
+		\item $A$ and $A'$ are isomorphic as $K$-algebras.
+		\item $A$ and $A'$ are isomorphic as quadratic spaces.
+	\end{enumerate}
+\end{proposition}
+
+\begin{proof}
+	First suppose there is an isomorphism $\phi:A \to A'$ of $K$-algebras.
+	We first show that the isomorphism commutes with conjugation, so that for any $x \in A$ that $\phi(\overline{x}) = \overline{\phi(x)}$.
+	Letting $x = \alpha + \beta$, with $\alpha \in K$ and $\beta$ a pure quaternion, we have 
+	\begin{align*}
+		\phi(\overline{x}) = \phi(\alpha -\beta) = \phi(\alpha) - \phi(\beta) = \alpha - \phi(\beta)
+	\end{align*}
+The last equality as $\phi$ is a $K$-algebra morphism. 
+Then note that \Cref{coroll:pure-quaternions} gives us $\phi(\beta) \in A'_0$ so 
+\[\alpha - \phi(\beta) = \overline{a + \phi(\beta)} = \overline{\phi(x)}\]
+as claimed. 
+Now $\phi$ then defines an isomorphism of quadratic spaces as 
+\[B'(x,x) = N(\phi(x)) = \phi(x) \overline{\phi(x)} = \phi(x) \phi(\overline{x}) = \phi(x \overline{x}) = \phi(N(x)) = N(x) = B(x,x)\]
+
+Conversely, assume that $A$ and $A'$ are isomorphic as quadratic spaces. 
+Then by \Cref{coroll:alg-witt-cancel} we have that an isomorphism $\varphi: A_0 \to A'_0$ as quadratic spaces. 
+Then note that 
+\[\varphi(i)^2 = -B'(\varphi(i), \varphi(i)) = -B(i, i) = a, \quad \varphi(j)^2 = -B'(\varphi(j), \varphi(j)) = -B(j, j) = b\]
+Orthogonality between $\varphi(i)$ and $\varphi(j)$ then gives us that
+\[0 = B'(\varphi(i). \varphi(j)) = \frac{1}{2}(\varphi(i) \varphi(j) + \varphi(j) \varphi(i)) \Rightarrow \varphi(i)\varphi(j) = - \varphi(j) \varphi(i)\]
+By the same reasoning one verifies $\varphi(ij)$ is orthogonal to $\varphi(i), \varphi(j)$ so the three span $A'_0$
+therefore $\varphi(i)$ and $\varphi(j)$ generate $A_0$ over $K$, and satisfy the same relations defiining $\qa{a}{b}$, hence they are isomorphic.
+\end{proof}
+
+\subsection{The Hilbert Symbol}
+
+We now define the Hilbert symbol, and give an equivalence of its equality with what will be called the  splitting of a quaternion algebra.
+
+\begin{definition}[Hilbert Symbol]
+	For any field $F$, and $a,b \in K^{\times}$ we define the \textit{Hilbert Symbol} of $a$ and $b$ (relative to $F$) as 
+\[(a,b) =
+\left\{
+	\begin{array}{ll}
+		1  & \mbox{if $Z^2 -aX_1^2 -bX_2^2 = 0$ has a nonzero solution in $K^3$} \\
+		-1 & \mbox{otherwise }
+	\end{array}
+\right.\]
+\end{definition}
+
+\begin{remark}
+	Since $a,b$ lie in a field the Hilbert symbol $(a,b)$ doesn't change when multiplying either $a,b$ by squares in $K^{\times}$, so this is well-defined on $K^{\times}/(K^{\times})^2$ the group of square classes.
+	In addition, note that by \Cref{prop:represent-prop1} that $(a,b) = 1$ is equivalent to $\langle a, b \rangle$ representing 1.
+\end{remark}
+
+\begin{proposition}\label{prop:hilbert-norm}
+	Let $a,b \in K^{\times}$ and let $K_b = K(\sqrt{b})$.
+	Then $(a,b) = 1$ if and only if $a$ belongs to the group $N K_b^{\times}$ of norms of elements in $K_b^{\times}$.
+\end{proposition}
+
+\begin{proof}
+	If $b = c^2$ is a square in $F$ then $(c,0,1)$ is a solution to $Z^2 -aX_1^2 -bX_2^2 = 0$  so $(a,b) = 1$.
+	Since $K_b = 1$ we have $N K_B^{\times} = N K^{\times} = K^{\times}$ which contains $a$, showing this case. \newline
+	\indent Otherwise $b$ is not a square in $F$, in which case $K_b = K(\sqrt{b})$ is a quadratic extension.
+	Every element in $K_b$ can be expressed as $x + y\sqrt{b}, x,y \in K$ with $N(x + y\sqrt{b}) = x^2 - by^2$.
+	So if $a$ lies in $N K_b^{\times}$ we have $a = x^2 - by^2$ then $(1,1,y)$ is a solution to $Z^2 -aX_1^2 -bX_2^2 = 0$  so $(a,b) = 1$.
+	Conversely, if $(a,b) = 1$ then $X_1 \neq 0$ otherwise $b$ would be a square. 
+	Then we have a solution $(x_1,x_2,z)$ to $Z^2 -aX_1^2 -bX_2^2 = 0$, in which case $a = (Z/X_1)^2 - b(X_2/X_1)^2 = N(Z/X_1 + (X_2/X_1)\sqrt{y})$ lies in $N K_b^{\times}$ as claimed. 
+	\end{proof}
+
+
+\begin{theorem}\label{theo:splitting}
+	The following conditions for $A = \qa{a}{b}$ are equivalent, in which case we saw that $A$ \textit{splits} over $K$ 	
+	\begin{enumerate}
+		\item $A \cong \qa{-1}{1}$.
+		\item $A$ is not a division algebra.
+		\item $A$ is isotropic as a quadratic space.
+		\item $A$ is hyperbolic as a quadratic space. ($A \cong \mb{H} \perp \mb{H}$)
+		\item We have $(a,b) = 1$ ($(a,b)$ is the Hilbert symbol here).
+	\end{enumerate}
 	
 \end{theorem}
+
 \begin{proof}
-	
+	$1. \to 2.$, as if $A \cong \qa{-1}{1}$ we know from $\Cref{prop:basic-facts}$ that $A \cong \mb{M}_2(K)$ is not a divison algebra as it has zero-divisors. \newline
+	\indent $2. \to 3.$ as non-invertible element in $A$ must represent 0 by \Cref{prop:invertibility},\newline
+	\indent To show $3. \to 4.$ note that as $A$ is isotropic then $A$ contains $\mb{H}$ ( by \Cref{prop:isotropic-hyperbolic}).
+	But as $A$ is regular we know that $A \cong \mb{H} \perp \mb{H}^{\perp}$ (by \Cref{prop:nondegen-decomp}). 
+	However, note that on discriminants we have
+	\[d(A) = (-a)(-b)ab = 1 = d(\mb{H})d(\mb{H}^{\perp}) = -d(\mb{H}^{\perp})\]
+	implies that $d(\mb{H}^{\perp}) = -1$, hence $\mb{H}^{\perp} \cong \mb{H}$ (by \Cref{theo:hyperbolic-plane}) establishing the isomorphism. \newline
+	\indent To prove $4. \to 5.$ recall again (by \Cref{theo:hyperbolic-plane}) that for any $k \in K^{\times}$ we have $\langle k, -k \rangle \cong  \langle 1, -1 \rangle = \mb{H}$.
+	Then 
+	\begin{align*}
+		\langle1, a, b, -ab \rangle \cong \mb{H} \perp \mb{H} = \langle 1, -1, 1, -1\rangle &\Rightarrow \langle1, a, -a, b, -b, -ab \rangle \cong \langle 1, -1, 1, -1, a, b\rangle\\
+															  &\Rightarrow \langle1, 1, -1, 1, -1, -ab \rangle \cong \langle 1, -1, 1, -1, a, b\rangle\\ 
+	&\Rightarrow \langle1, -ab \rangle \cong \langle a, b\rangle
+	\end{align*}
+	the last implication from \Cref{coroll:alg-witt-cancel}. 
+	Now $\langle 1, -ab \rangle$ clearly represents 1 so $\langle a, b \rangle$ does as well.
+	As remarked, this is equivalent to $(a,b) = 1$.\newline
+	\indent We show $5. \to 2.$. 
+	From \Cref{prop:hilbert-norm} we know that $a$ lies in $N K_b^{\times}$.
+	We once again distinguish two cases. 
+	If $b = c^2$ is a square in $K$, then $(c - j)(c+j) = 0$ gives us that $A$ has zero-divisors so isn't a division algebra.
+	If $b$ is not a square in $K$, we once again have $z^2 -a - by^2 = 0$ for nonzero $z,y$, but this is precisely $N(z + i + yj)$ hence $(z + i + yj)$ is not invertible. (Again by \Cref{prop:invertibility}).\newline
+	\indent To show that $2. \to 1.$ we have to use the Wedderburn-Artin Theorem, which gives us that since $A$ is a simple finite-dimensional $K$-algebra (from \Cref{prop:basic-facts}), it is a matrix algebra $\mb{M}_n(D)$ for over a division ring over $K$.
+	However, since $A$ is not a division algebra $m \geq 2$, but since $\text{dim}_K(A) = 4$ we must have $m = 2$ and $D = K$ finishing the proof.
 \end{proof}
 
-\section{Quadratic Forms Over Number Fields}
 
-In this section, $R$ will denote a complete discrete valuation ring a finite extension of $\Q_p$ (i.e. the completion of a number field at a prime), $\mc{O}_R$, $k$, $\pi$, $U$,  the set of places, and so on. 
+
+\section{The Hasse-Minkowski Principle}
+
+\subsection{Quadratic Forms Over Number Fields}
+
+Here $K$ will always denote a finite extension of $\Q_p$ (in our case we are interested in the completion of a number field at a nonzero prime). Let $\mc{O}_K$ denote its corresponding discrete valuation ring with maximal ideal $\mk{m}$ and residue field $k$.
+
+
+\begin{proposition}
+	For any family of polynomials $f^{(i)} \in \mc{O}_K [X_1, \dots, X_m]$,
+	Then the following are equivalent
+	\begin{enumerate}
+		\item The $f^{(i)}$ have a common zero in $(\mc{O}_K)^m$.
+		\item For all $n > 1$ the polynomials $f^{(i)} (\bmod{\,\mk{m}^n})$ have a common zero in 
+	$(\mc{O}_K/\mk{m}^n)^m$
+\end{enumerate}	
+\end{proposition}
+
+\begin{proof}
+	1 implies 2 by simply taking the simple zero modulo $\mk{m}^n$.
+	Since $K$ is a finite extension of $\Q_p$, its residue field is finite, and so $\mc{O}_K / \mk{m}^n$ is finite for each $n > 1$.
+	Therefore, to show 2 implies 1 it suffices to show that if $ \dots \to D_n \to D_{n-1} \to \dots \to D_1$ is a projective system, where each $D_i$ is finite and nonempty, then $D = \varprojlim D_i$ has a solution, by taking the limit over solutions mod $\mk{m}^n$.
+	Denoting $D_{n,p}$ the image of $D_{n+p}$ in $D_n$, then they form a decreasing filtration of subsets of $D_{n}$. As $D_n$ is finite these must stabilize to some subset $E_n$. The map $D_{n+1} \to D_n$ carries $E_{n+1} \to E_n$ and are surjective, from definition.
+	A solution can then always be found in $D$ by inductively lifting one among the $E_i$.
+\end{proof}
+
+\begin{remark}
+	If $f^{(i)}$ are all homogeneous polynomials, note the nonzero solutions in $(\mc{O}_K)^m$ defined up to a scalar. 
+	So if $(x_1, \dots, x_m)$ is a nonzero solution in $K^m$, then choosing an element $y$ such that $v(y) = \text{min}(v(x_1), \dots, v(x_m))$, we have that $(y^{-1} x_1, \dots, y^{-1} x_m)$ is another solution (now guaranteed to be in $\mc{O}_K^m$) such that one coefficient is invertible in $\mc{O}_K$. 
+	We will call such a solution \textit{primitive} (following \cite{ACIA}), similarly defined in $\mc{O}_K/\m^n$.
+\end{remark}
+
+\begin{corollary}
+	If $f^{(i)} \in \mc{O}_K [X_1, \dots, X_m]$ are all homogeneous, then the following are equivalent
+	\begin{enumerate}
+		\item The $f^{(i)}$ have a common non-zero in $(K)^m$.
+		\item The $f^{(i)}$ have a common primitive zero in $(\mc{O}_K)^m$.
+		\item For all $n > 1$ the polynomials $f^{(i)} (\bmod{\,\mk{m}^n})$ have a common primitive zero in 
+	$(\mc{O}_K/\mk{m}^n)^m$
+\end{enumerate}	
+\end{corollary}
+
+
+\begin{lemma}\label{lemm:hensel}
+	Let $f \in \mc{O}_K[X]$ and $f'$ its derivative.
+	If $x \in \mc{O}_K$, with $n,k \in \Z$ satisfying $0 \leq 2k < n$ and $f(x) \equiv 0 \pmod{\m^n}, v(f'(x)) \equiv k$.
+	Then one can always find $y \in \mc{O}_K$ satisfying 
+	\[f(y) \equiv 0 \pmod{\m^{n+1}},\quad v(f'(y)) \equiv k, \quad y = x \pmod{\m^{n-k}}\]
+\end{lemma}
+
+\begin{proof}
+	This proof uses the same idea as the proof of Hensel's lemma, and we sketch it here. 
+	If $\pi$ is an uniformizer for $K$, by our assumptions we may write $f(x) = \pi^n a, f'(x) = \pi^k u$, with $a, u \in \mc{O}_K$ and $u$ invertible.
+	Since $y \equiv x \pmod{p^{n-k}}$ we suspect $y$ to be of the form $x + p^{n-k}z$ or $z \in \mc{O}_K$.
+	After expanding out, we have for some $b \in \mc{O}_K$ that 
+\begin{align*}
+	f(y) = f(x) + p^{n-k}z f'(x) + p^{2n - 2k} b =    p^n(a + uz) +  p^{2n - 2k} b
+\end{align*}
+We may choose $z$ such that $a + uz \equiv 0 \pmod{\m}$, and since $2n - 2k > n$ we have $f(y) \equiv 0 \pmod{\m^{n+1}}$.
+Expanding the same way for $f'(y)$ shows that $f'(y) \equiv p^k u \pmod{p^{n-k}}$ and so $v(f'(y)) \equiv k$ still, as we wanted.
+\end{proof}
+
+This allows us to lift solutions mod $\m^n$ in many ways as we describe using the following theorem.
+
+\begin{theorem}\label{theo:hensel}
+	Let $f \in \mc{O}_K[X_1, \dots, X_m]$, $x = (x_i) \in (\mc{O}_K)^m$	with $n,k \in \Z$ satisfying $0 \leq 2k < n$ and $0 \leq j \leq m$ an index such that
+	\[f(x) \equiv 0\pmod{\m^{n+1}},\quad v( \frac{\partial f}{ \partial X_j}(x)) = k\]
+	Then $f$ has a zero $y \in (\mc{O}_K)^m$ congruent to $x \pmod{\m^{n-k}}$
+\end{theorem}
+\begin{proof}
+	If $m = 1$ we easily reduce to \Cref{lemm:hensel}. 
+	Letting $x_0 = x$, we obtain an $x_1$ from $x$ and in general a $x_i, i > 1$ such that $f(x_i) \equiv 0 \pmod{\m^{n+i}}$ amd $y = x \pmod{\m^{n-k + i}}$.
+	This defines a Cauchy sequence $x_i$ whose limit is a zero satisfying our required conditions. \newline
+	\indent The case when  $m > 1$  reduces to the first case, as letting $\overline{f} \in \mc{O}_K[X_j]$ be $f$ with $X_i$ substituted with $x_i$ for $i \neq j$, satisfies our above conditions for some $y_j \equiv x_j \pmod{\m^{n-k}}$.
+	Then $y$, equal to $(x_i)$ but with $x_j$ switched with $y_j$ is a zero satisfying our requirements as wanted.
+\end{proof}
+
+This theorem gives us some existence theorems for zeros in many special cases of interest to us. 
+
+\begin{corollary}\label{cor:simple-zero-lift}
+	A simple zero $\overline{x}$ of $f^{(i)} \pmod{\m}$ always lifts to a zero $x$ in $(\mc{O}_K)^m$.
+	(Here simple implies one of the partial derivates is nonzero at $\overline{x}$).
+\end{corollary}
+ 
+\begin{proof}
+	Indeed, lifting the $\overline{x}_i$ to any $x_i \in \mc{O}_K$ such that $\overline{x}_i  = x_i \pmod{\m}$, then $x = (x_i)$ satisfies the condition of \Cref{theo:hensel} for $n=1, k=0$, as the $j$ for which the partial at $\overline{x}_j \neq 0$ then satisfies $v(x_j) = 0$.
+\end{proof}
+
+In the case of quadratic forms $Q(x) = \sum a_{ij} X_i X_j$ (for which we always take the symmetric representative where $a_{ij} = a_{ji}$), the lifting of solutions depends on the characteristic of the residue field $k$.
+
+\todo{discriminant def needed here?}
+\begin{corollary}\label{cor:char-not-2-lift}
+	Suppose char $k \neq 2$. If $Q(x)$ is a quadratic form and $b \in \mc{O}_K$, we have that any primitive solution $x$ such that of $Q(x) - b \equiv 0 \bmod{\m}$ lifts to one in $(\mc{O}_K)^m$ if $x$ does not annihilate all of $\frac{\partial Q}{\partial X_j} $ modulo $\m$. 
+	This condition is fulfilled if $\text{det}(a_{ij})$ is invertible.
+\end{corollary}
+
+\begin{proof}
+	Note that $ \frac{\partial Q}{\partial X_j} = 2 \sum_i a_{ij} X_j$ is the twice the $j$th entry of matrix product $(a_{ij}) x$. 
+	By our assumption that $x$ doesn't annihilated every partial, at least one entry must be nonzero modulo $\m$ and we are done by \Cref{cor:simple-zero-lift}.
+	This condition is satisfied when $\text{det}(a_{ij})$ as $x$ is nonzero being primitive, so $(a_{ij}) x \neq 0$ modulo $\m$. 
+\end{proof}
+
+When char $k = 2$ the previous argument doesn't work as $2 = 0$.
+The best alternative is considering solutions mod $\m^n$ for sufficient $n$ such that $\mc{O}_K /\m^n$ is not of characteristic 2.
+The smallest such $n$ will depend on the ramification of $\mc{O}_K$ over $\Q_2$.
+
+\begin{corollary}
+	Suppose char $k = 2$ and denote $e$ the ramification index of $K/\Q_2$. 
+	If $Q(x)$ is a quadratic form and $b \in \mc{O}_K$, we have that any primitive solution $x$ such that of $Q(x) - b \equiv 0 \bmod{\m^{2e + 1}}$ lifts to one in $(\mc{O}_K)^m$ if $x$ does not annihilate all of $\frac{\partial Q}{\partial X_j} $ modulo $\m^{e+1}$. 
+	This condition is similarly fulfilled if $\text{det}(a_{ij})$ is invertible.
+
+\end{corollary}
+
+\begin{proof}
+	The proof is analogous to \Cref{cor:char-not-2-lift}, noting that $e+1$ is the smallest value for which $2 \neq 0$ in $\mc{O}_k/\m^{e+1}$.
+	We thus require non-zero partials modulo $\m^{e+1}$, whose valuation is at most $e$.
+	As in the notation of \Cref{theo:hensel}, we thus have $k \leq n$ and requiring $0 \leq 2k < n$, we see $n = 2e + 1$ is the smallest choice for which we may always lift a solution to $(\mc{O}_K)^m$. 
+\end{proof}
 
 \begin{theorem}[Stronger Hensel's]
 	
@@ -736,7 +997,7 @@ In this section, $R$ will denote a complete discrete valuation ring a finite ext
 	
 \end{corollary}
 
-\section{Hasse-Minkowski Theorem}
+\subsection{Hasse-Minkowski Theorem}
 
 
 
@@ -756,6 +1017,9 @@ a
 
 \section{Selmer's Example}
 
+
+
+\newpage
 
 \bibliographystyle{plain}
 \bibliography{lib}
