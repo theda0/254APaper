@@ -74,7 +74,8 @@
 \tableofcontents
 
 \section{Introduction}
-
+\todo{add brief introduction to local/global principles}
+\todo{cite theorems after I say what they do}
 
 \section{Background}
 
@@ -115,82 +116,6 @@ Here $K$ will always denote a finite extension of $\Q_p$ (in our case we are int
 \end{enumerate}	
 \end{corollary}
 
-
-\begin{lemma}\label{lemm:hensel}
-	Let $f \in \mc{O}_K[X]$ and $f'$ its derivative.
-	If $x \in \mc{O}_K$, with $n,k \in \Z$ satisfying $0 \leq 2k < n$ and $f(x) \equiv 0 \pmod{\m^n}, v(f'(x)) \equiv k$.
-	Then one can always find $y \in \mc{O}_K$ satisfying 
-	\[f(y) \equiv 0 \pmod{\m^{n+1}},\quad v(f'(y)) \equiv k, \quad y = x \pmod{\m^{n-k}}\]
-\end{lemma}
-
-\begin{proof}
-	This proof uses the same idea as the proof of Hensel's lemma, and we sketch it here. 
-	If $\pi$ is an uniformizer for $K$, by our assumptions we may write $f(x) = \pi^n a, f'(x) = \pi^k u$, with $a, u \in \mc{O}_K$ and $u$ invertible.
-	Since $y \equiv x \pmod{p^{n-k}}$ we suspect $y$ to be of the form $x + p^{n-k}z$ or $z \in \mc{O}_K$.
-	After expanding out, we have for some $b \in \mc{O}_K$ that 
-\begin{align*}
-	f(y) = f(x) + p^{n-k}z f'(x) + p^{2n - 2k} b =    p^n(a + uz) +  p^{2n - 2k} b
-\end{align*}
-We may choose $z$ such that $a + uz \equiv 0 \pmod{\m}$, and since $2n - 2k > n$ we have $f(y) \equiv 0 \pmod{\m^{n+1}}$.
-Expanding the same way for $f'(y)$ shows that $f'(y) \equiv p^k u \pmod{p^{n-k}}$ and so $v(f'(y)) \equiv k$ still, as we wanted.
-\end{proof}
-
-This allows us to lift solutions mod $\m^n$ in many ways as we describe using the following theorem.
-
-\begin{theorem}\label{theo:hensel}
-	Let $f \in \mc{O}_K[X_1, \dots, X_m]$, $x = (x_i) \in (\mc{O}_K)^m$	with $n,k \in \Z$ satisfying $0 \leq 2k < n$ and $0 \leq j \leq m$ an index such that
-	\[f(x) \equiv 0\pmod{\m^{n+1}},\quad v( \frac{\partial f}{ \partial X_j}(x)) = k\]
-	Then $f$ has a zero $y \in (\mc{O}_K)^m$ congruent to $x \pmod{\m^{n-k}}$
-\end{theorem}
-\begin{proof}
-	If $m = 1$ we easily reduce to \Cref{lemm:hensel}. 
-	Letting $x_0 = x$, we obtain an $x_1$ from $x$ and in general a $x_i, i > 1$ such that $f(x_i) \equiv 0 \pmod{\m^{n+i}}$ amd $y = x \pmod{\m^{n-k + i}}$.
-	This defines a Cauchy sequence $x_i$ whose limit is a zero satisfying our required conditions. \newline
-	\indent The case when  $m > 1$  reduces to the first case, as letting $\overline{f} \in \mc{O}_K[X_j]$ be $f$ with $X_i$ substituted with $x_i$ for $i \neq j$, satisfies our above conditions for some $y_j \equiv x_j \pmod{\m^{n-k}}$.
-	Then $y$, equal to $(x_i)$ but with $x_j$ switched with $y_j$ is a zero satisfying our requirements as wanted.
-\end{proof}
-
-This theorem gives us some existence theorems for zeros in many special cases of interest to us. 
-
-\begin{corollary}\label{cor:simple-zero-lift}
-	A simple zero $\overline{x}$ of $f^{(i)} \pmod{\m}$ always lifts to a zero $x$ in $(\mc{O}_K)^m$.
-	(Here simple implies one of the partial derivates is nonzero at $\overline{x}$).
-\end{corollary}
- 
-\begin{proof}
-	Indeed, lifting the $\overline{x}_i$ to any $x_i \in \mc{O}_K$ such that $\overline{x}_i  = x_i \pmod{\m}$, then $x = (x_i)$ satisfies the condition of \Cref{theo:hensel} for $n=1, k=0$, as the $j$ for which the partial at $\overline{x}_j \neq 0$ then satisfies $v(x_j) = 0$.
-\end{proof}
-
-In the case of quadratic forms $Q(x) = \sum a_{ij} X_i X_j$ (for which we always take the symmetric representative where $a_{ij} = a_{ji}$), the lifting of solutions depends on the characteristic of the residue field $k$.
-
-\todo{discriminant def needed here?}
-\begin{corollary}\label{cor:char-not-2-lift}
-	Suppose char $k \neq 2$. If $Q(x)$ is a quadratic form and $b \in \mc{O}_K$, we have that any primitive solution $x$ such that of $Q(x) - b \equiv 0 \bmod{\m}$ lifts to one in $(\mc{O}_K)^m$ if $x$ does not annihilate all of $\frac{\partial Q}{\partial X_j} $ modulo $\m$. 
-	This condition is fulfilled if $\text{det}(a_{ij})$ is invertible.
-\end{corollary}
-
-\begin{proof}
-	Note that $ \frac{\partial Q}{\partial X_j} = 2 \sum_i a_{ij} X_j$ is the twice the $j$th entry of matrix product $(a_{ij}) x$. 
-	By our assumption that $x$ doesn't annihilated every partial, at least one entry must be nonzero modulo $\m$ and we are done by \Cref{cor:simple-zero-lift}.
-	This condition is satisfied when $\text{det}(a_{ij})$ as $x$ is nonzero being primitive, so $(a_{ij}) x \neq 0$ modulo $\m$. 
-\end{proof}
-
-When char $k = 2$ the previous argument doesn't work as $2 = 0$.
-The best alternative is considering solutions mod $\m^n$ for sufficient $n$ such that $\mc{O}_K /\m^n$ is not of characteristic 2.
-The smallest such $n$ will depend on the ramification of $\mc{O}_K$ over $\Q_2$.
-
-\begin{corollary}
-	Suppose char $k = 2$ and denote $e$ the ramification index of $K/\Q_2$. 
-	If $Q(x)$ is a quadratic form and $b \in \mc{O}_K$, we have that any primitive solution $x$ such that of $Q(x) - b \equiv 0 \bmod{\m^{2e + 1}}$ lifts to one in $(\mc{O}_K)^m$ if $x$ does not annihilate all of $\frac{\partial Q}{\partial X_j} $ modulo $\m^{e+1}$. 
-	This condition is similarly fulfilled if $\text{det}(a_{ij})$ is invertible.
-
-\end{corollary}
-
-\begin{proof}
-	The proof is analogous to \Cref{cor:char-not-2-lift}, noting that $e+1$ is the smallest value for which $2 \neq 0$ in $\mc{O}_k/\m^{e+1}$.
-	We thus require non-zero partials modulo $\m^{e+1}$, whose valuation is at most $e$.
-	As in the notation of \Cref{theo:hensel}, we thus have $k \leq n$ and requiring $0 \leq 2k < n$, we see $n = 2e + 1$ is the smallest choice for which we may always lift a solution to $(\mc{O}_K)^m$. 
-\end{proof}
 
 
 \subsection{The Multiplicative Group of $K$}
@@ -511,7 +436,7 @@ so $Q$ still represents $d$ as wanted.
 
 We conclude this section with a fact about quadratic forms we will need to use later in the proof of the Hasse-Minkowski theorem, but for which we do not have the space to give it an adequate context or proof.
 
-\begin{proposition}
+\begin{proposition}\label{discriminant-splitting}
 	Let $f$ is a four-dimensional quadratic form over a field $K$ of discriminant $d$.
 	Then $f$ is isotropic over $K(\sqrt{d})$ if and only if it is isotropic over $K$.
 \end{proposition}
@@ -581,7 +506,7 @@ Applying the above theorem to the language of quadratic forms we obtain the foll
 
 With the results given on quadratic forms, we believe this is the best time to present the following results regarding those over finite fields $\mb{F}_q$, for $q = p^n$ for some prime $p$.
 
-\begin{proposition}
+\begin{proposition}\label{finite-field-isotropic}
 	A quadratic form over $\mb{F}_q$ of rank $\geq 2$  (respectively $\geq 3$) represents all elements of $\mb{F}_q^{\times}$ (respectively $\mb{F}_q$).
 \end{proposition}
  
@@ -823,7 +748,7 @@ We now define the Hilbert symbol, and give an equivalence of its equality with w
 
 
 \begin{theorem}\label{theo:splitting}
-	The following conditions for $A = \qa{a}{b}$ are equivalent, in which case we saw that $A$ \textit{splits} over $K$ 	
+	The following conditions for $A = \qa{a}{b}$ are equivalent, in which case we say that $A$ \textbf{splits} over $K$ 	
 	\begin{enumerate}
 		\item $A \cong \qa{-1}{1}$.
 		\item $A$ is not a division algebra.
@@ -865,44 +790,19 @@ We now define the Hilbert symbol, and give an equivalence of its equality with w
 
 \section{The Hasse-Minkowski Principle}
 
-\subsection{Quadratic Forms Over Number Fields}
-
-Here $K$ will always denote a finite extension of $\Q_p$ (in our case we are interested in the completion of a number field at a nonzero prime). Let $\mc{O}_K$ denote its corresponding discrete valuation ring with maximal ideal $\mk{m}$ and residue field $k$.
 
 
-\begin{proposition}
-	For any family of polynomials $f^{(i)} \in \mc{O}_K [X_1, \dots, X_m]$,
-	Then the following are equivalent
-	\begin{enumerate}
-		\item The $f^{(i)}$ have a common zero in $(\mc{O}_K)^m$.
-		\item For all $n > 1$ the polynomials $f^{(i)} (\bmod{\,\mk{m}^n})$ have a common zero in 
-	$(\mc{O}_K/\mk{m}^n)^m$
-\end{enumerate}	
-\end{proposition}
+Here $K$ will always denote a finite extension of $\Q_p$ (in our case we are interested in the completion of a number field at a nonzero prime). 
+We will fix notation for the rest of this section here.
+$\mc{O}_K$ willdenote its corresponding discrete valuation ring with maximal ideal $\mk{m}$ and residue field $k$, and $\pi$ any uniformizer.
+\newline 
 
-\begin{proof}
-	1 implies 2 by simply taking the simple zero modulo $\mk{m}^n$.
-	Since $K$ is a finite extension of $\Q_p$, its residue field is finite, and so $\mc{O}_K / \mk{m}^n$ is finite for each $n > 1$.
-	Therefore, to show 2 implies 1 it suffices to show that if $ \dots \to D_n \to D_{n-1} \to \dots \to D_1$ is a projective system, where each $D_i$ is finite and nonempty, then $D = \varprojlim D_i$ has a solution, by taking the limit over solutions mod $\mk{m}^n$.
-	Denoting $D_{n,p}$ the image of $D_{n+p}$ in $D_n$, then they form a decreasing filtration of subsets of $D_{n}$. As $D_n$ is finite these must stabilize to some subset $E_n$. The map $D_{n+1} \to D_n$ carries $E_{n+1} \to E_n$ and are surjective, from definition.
-	A solution can then always be found in $D$ by inductively lifting one among the $E_i$.
-\end{proof}
-
-\begin{remark}
-	If $f^{(i)}$ are all homogeneous polynomials, note the nonzero solutions in $(\mc{O}_K)^m$ defined up to a scalar. 
+	\indent If $f^{(i)} \in \mc{O}_K[X_1, \dots, X_n]$ are are all homogeneous polynomials (say a quadratic form) , note any nonzero solutions in $(\mc{O}_K)^m$ defined up to a scalar. 
 	So if $(x_1, \dots, x_m)$ is a nonzero solution in $K^m$, then choosing an element $y$ such that $v(y) = \text{min}(v(x_1), \dots, v(x_m))$, we have that $(y^{-1} x_1, \dots, y^{-1} x_m)$ is another solution (now guaranteed to be in $\mc{O}_K^m$) such that one coefficient is invertible in $\mc{O}_K$. 
 	We will call such a solution \textit{primitive} (following \cite{ACIA}), similarly defined in $\mc{O}_K/\m^n$.
-\end{remark}
 
-\begin{corollary}
-	If $f^{(i)} \in \mc{O}_K [X_1, \dots, X_m]$ are all homogeneous, then the following are equivalent
-	\begin{enumerate}
-		\item The $f^{(i)}$ have a common non-zero in $(K)^m$.
-		\item The $f^{(i)}$ have a common primitive zero in $(\mc{O}_K)^m$.
-		\item For all $n > 1$ the polynomials $f^{(i)} (\bmod{\,\mk{m}^n})$ have a common primitive zero in 
-	$(\mc{O}_K/\mk{m}^n)^m$
-\end{enumerate}	
-\end{corollary}
+
+
 
 
 \begin{lemma}\label{lemm:hensel}
@@ -950,70 +850,161 @@ This theorem gives us some existence theorems for zeros in many special cases of
 	Indeed, lifting the $\overline{x}_i$ to any $x_i \in \mc{O}_K$ such that $\overline{x}_i  = x_i \pmod{\m}$, then $x = (x_i)$ satisfies the condition of \Cref{theo:hensel} for $n=1, k=0$, as the $j$ for which the partial at $\overline{x}_j \neq 0$ then satisfies $v(x_j) = 0$.
 \end{proof}
 
-In the case of quadratic forms $Q(x) = \sum a_{ij} X_i X_j$ (for which we always take the symmetric representative where $a_{ij} = a_{ji}$), the lifting of solutions depends on the characteristic of the residue field $k$.
+\subsection{Quadratic Forms Over Number Fields}
 
-\todo{discriminant def needed here?}
-\begin{corollary}\label{cor:char-not-2-lift}
-	Suppose char $k \neq 2$. If $Q(x)$ is a quadratic form and $b \in \mc{O}_K$, we have that any primitive solution $x$ such that of $Q(x) - b \equiv 0 \bmod{\m}$ lifts to one in $(\mc{O}_K)^m$ if $x$ does not annihilate all of $\frac{\partial Q}{\partial X_j} $ modulo $\m$. 
+In the case of quadratic forms $f$ the lifting of solutions depends on the characteristic of the residue field $k$.
+
+\begin{proposition}\label{prop:char-not-2-lift}
+	Suppose char $k \neq 2$. If $f(x)$ is a quadratic form and $b \in \mc{O}_K$, we have that any primitive solution $x$ such that of $f(x) - b \equiv 0 \bmod{\m}$ lifts to one in $(\mc{O}_K)^m$ if $x$ does not annihilate all of $\frac{\partial f}{\partial X_j} $ modulo $\m$. 
 	This condition is fulfilled if $\text{det}(a_{ij})$ is invertible.
-\end{corollary}
+\end{proposition}
 
 \begin{proof}
-	Note that $ \frac{\partial Q}{\partial X_j} = 2 \sum_i a_{ij} X_j$ is the twice the $j$th entry of matrix product $(a_{ij}) x$. 
+	Note that $ \frac{\partial f}{\partial X_j} = 2 \sum_i a_{ij} X_j$ is the twice the $j$th entry of matrix product $(a_{ij}) x$. 
 	By our assumption that $x$ doesn't annihilated every partial, at least one entry must be nonzero modulo $\m$ and we are done by \Cref{cor:simple-zero-lift}.
 	This condition is satisfied when $\text{det}(a_{ij})$ as $x$ is nonzero being primitive, so $(a_{ij}) x \neq 0$ modulo $\m$. 
 \end{proof}
+
 
 When char $k = 2$ the previous argument doesn't work as $2 = 0$.
 The best alternative is considering solutions mod $\m^n$ for sufficient $n$ such that $\mc{O}_K /\m^n$ is not of characteristic 2.
 The smallest such $n$ will depend on the ramification of $\mc{O}_K$ over $\Q_2$.
 
-\begin{corollary}
+\begin{proposition}
 	Suppose char $k = 2$ and denote $e$ the ramification index of $K/\Q_2$. 
 	If $Q(x)$ is a quadratic form and $b \in \mc{O}_K$, we have that any primitive solution $x$ such that of $Q(x) - b \equiv 0 \bmod{\m^{2e + 1}}$ lifts to one in $(\mc{O}_K)^m$ if $x$ does not annihilate all of $\frac{\partial Q}{\partial X_j} $ modulo $\m^{e+1}$. 
 	This condition is similarly fulfilled if $\text{det}(a_{ij})$ is invertible.
 
-\end{corollary}
+\end{proposition}
 
 \begin{proof}
-	The proof is analogous to \Cref{cor:char-not-2-lift}, noting that $e+1$ is the smallest value for which $2 \neq 0$ in $\mc{O}_k/\m^{e+1}$.
+	The proof is analogous to \Cref{prop:char-not-2-lift}, noting that $e+1$ is the smallest value for which $2 \neq 0$ in $\mc{O}_k/\m^{e+1}$.
 	We thus require non-zero partials modulo $\m^{e+1}$, whose valuation is at most $e$.
 	As in the notation of \Cref{theo:hensel}, we thus have $k \leq n$ and requiring $0 \leq 2k < n$, we see $n = 2e + 1$ is the smallest choice for which we may always lift a solution to $(\mc{O}_K)^m$. 
 \end{proof}
 
-\begin{theorem}[Stronger Hensel's]
-	
-\end{theorem}
 
-\begin{theorem}[Local Square theorem]
-	For a
-\end{theorem}
 
-\begin{corollary}[Units in non-dyadic valuation rings ]
-	
+
+In this section we establish just enough facts about quadratic forms over number fields to give a proof of the Hasse-Minkowski Theorem afterwards.
+
+\begin{corollary}\label{lifting-up}
+	Suppose $\text{char}(k) \neq 2$.
+	Any quadratic form $f = d_1 X_1^2 + \dots d_n X_n^2$ such that $d_1, \dots, d_n$ are units in $K$ and $n \geq 3$ is isotropic.
+\end{corollary}
+\begin{proof}
+	Let $\overline{d}_i = d_i \pmod{\mk{m}}$ for $1 \leq i \leq n$.
+	Then $d_i \in U$ implies $\overline{d}_i \neq 0$
+	By \Cref{prop:char-not-2-lift} it suffices to show that the rank $n$ quadratic form $\overline{f} = \overline{d}_1 X_1^2 + \dots \overline{d}_n X_n^2$ over $k$ is isotropic for $n \geq 3$, which follows from our results on quadratic forms of finie fields. (\Cref{finite-field-isotropic}).
+\end{proof}
+
+
+\begin{theorem}
+	Once again let $\pi$ denote an uniformizer of $K$. 
+	For any $\alpha \in \mc{O}_K$, there exists a $\beta \in \mc{O}_K$ such that $1 + 4 \pi \alpha = (1 + 2 \pi \beta)^2$.
+	Furthermore, $1 + 4 \mk{m} \subset U^2$, for $U$ the group of units of $K$.
+\end{theorem}
+\begin{proof}
+	We may apply \Cref{theo:hensel} to the polynomial $X^2 - (1 + 4\pi \alpha)$ with $x = 1, k = v(2), n = v(4 \pi \alpha)$ as if $\text{char}(k) \neq 2$ then $k = 0$, otherwise if $v(2) = e > 0$, then $v(4 \pi \alpha) > 2e$ (so we always have $0 \leq 2k < n$).
+	Then there exists a square root $c$ of $1 + 4 \pi \alpha$ such that $c \equiv 1 \pmod{2 \pi \alpha}$ and $v(2c) = v(f'(1)) = v(2)$.
+	The former equality says that $c = 1 + 2 \pi y$ for some $y \in \mc{O}_K$ as we wanted.
+	Finally, the latter equality says $v(c) = 0$ so $c$ is a unit, which applying the above to any $k \in \mk{m}$ gives us $1 + 4 \mk{m} \subset U^2$.
+\end{proof}
+
+\begin{corollary}
+	If $\text{char} (k) \neq 2$, then $x \in \mc{O}_K$ is a square if and only if $x \pmod {m}$ is a square in $k$.
 \end{corollary}
 
-\begin{corollary}[$R^{\times}$ is an open subgroup]
-	
+\begin{proof}
+	If $x = a^2$ is a square, reducing mod $\mk{m}$ shows $x \pmod{m}$ must be a square in $k$.
+	Conversely, let $u = x \pmod{m}$ and suppose it is a square in $k$, i.e. $u = c^2$.
+	By dividing $x$ by the Teichmuller representative which is $u$ mod $\mk{m}$ (the square of the one which is $c$ mod $\mk{m}$) it reduces to the case where $x \equiv 1 \pmod {\mk{m}}$.
+	As $\text{char}(k) \neq 2$ we have 4 is invertible in $k$, so every such $x$ can be expressed as $1 = 4 \pi a$, $a \in \mc{O}_K$ and our results follows from the previous theorem. 
+
+\end{proof}
+
+\begin{corollary}\label{open}	
+	$(K^{\times})^2$ is an open subgroup of $K^{\times}$.
+	More specifically, if $c \equiv d \bmod{4 \pi}$ then $c \in d (K^{\times})^2$
 \end{corollary}
+\begin{proof}
+	This says $c/d \equiv 1 \bmod{4 \pi}$, now apply the previous theorem.
+\end{proof}
+
 
 \subsection{Hasse-Minkowski Theorem}
 
+\begin{notation}
+	Throughout this subsection, $F \supset \Q$ will denote a number field, and $V$ thet set of equivalence classes of norms (both archimedean and non-archimedean) on $F$.
+\end{notation}
 
 
-\begin{theorem}[Hasse-Minkowski]
-	
+Our proof of the Hasse-Minkowksi Theorem over number fields won't be entirely self-contained (our proof will follow \cite{ATOQF} and we will need two major results which we state below without proof.
+
+\begin{theorem}\label{global-square-theorem}
+	Let $a \in F^{\times}$.
+	Then $a \in (F^{\times})^2$ if and only if $a \in (F_v^{\times})^2$ for each $v \in V$.
 \end{theorem}
 
-a
+
+\begin{theorem}\label{local-global-quat-splitting}
+	Let $A$ be a quaternion algebra over $F$. Then $A$ splits over $F$ if and only if $A$ splits over $F_v$ for each $v \in V$.
+\end{theorem}
+
+The second theorem may be viewed as a special case of the Albert-Brauer-Hasse-Noether theorem, which is similarly stated but for central simple aglgebras over $F$.
+We now proceed with the proof of our main theorem of this paper.
+
+\begin{theorem}[Hasse-Minkowski Theorem]
+	A quadratic form $f$ over $F$ is isotropic if and only if $f$ is isotropic over $F_v$ for each $v \in V$.
+\end{theorem}
+
 \begin{proof}
-	
+	From the embeddings $F \hookrightarrow F_v$ for each $v \in V$, it is immediate that if $F$ is isotropic, the same element over $F$ shows it is isotropic over the $F_v$. \newline
+
+	\indent To show the conditions are sufficient, we argue depending on the rank $n$ of $f$.
+	We may always represent an  $n$-ary form $f$ as $X_1^2 + a_2X_2^2 + \dots + a_n X_n^2$ (corresponding to the quadratic space $\langle 1, a_2, \dots, a_n \rangle$) as $f = a_1X_1^2 + \dots a_n X_n^2$ is a diagonal form, $f$ isotropic if and only if $a_1 f$ is isotropic, and the latter is equivalent to $X_1^2 + a_2X_2^2 + \dots + a_n X_n^2$.
+	Rank $1$ forms are never isotropic, so the case $n = 1$ is trivial. \newline
+
+	\indent $n = 2$: Let $f = X_1^2 + aX_2^2$ correspond to the quadratic space $\langle 1, a \rangle$.
+Over each $F_v$ if $(x_1, x_2)$ represents then $x_1, x_2 \neq 0$ so $-a = (x_1/x_2)^2$ shows that $-a$ is a square in each $F_v$.
+Then $-a$ is a square in $F$ by \Cref{global-square-theorem}.
+So if $-a = b^2$ in $F$ we see $(b,1)$ shows $f$ is indeed isotropic over $F$. \newline
+
+\indent $n = 3:$ Letting $f = X_1^2 + a X_2^2 + b X_3^2$ correspond to the quadratic space $\langle 1,a,b \rangle$.
+For any $v \in V$, as $\langle 1,a,b \rangle$ is isotropic over $F_v$ we have $\langle -a,-b\rangle$ represents 1 (by \Cref{prop:represent-prop1}).
+Then the quaternion algebra $( \frac{-a, -b}{F_v})$ splits (by \Cref{theo:splitting}).
+However, then $( \frac{-a, -b}{F})$ splits (by \Cref{local-global-quat-splitting}) so again we equivalently have that $\langle -a, -b \rangle$ represents 1 over $F$, so $\langle 1,a,b \rangle$ is indeed isotropic over $F$. \newline
+
+\indent $n = 4:$   Letting $f = X_1^2 - a X_2^2 - b X_3^2 + c X_4^2$ correspond to the quadratic space $\langle 1,-a,-b,c \rangle$, which has discriminant $abc$.
+It suffices to show $f$ is isotropic over $L = F(\sqrt{abc})$ by \Cref{discriminant-splitting}.
+Letting $V_L$ denoting the set of equivalence class of norms for $L$, we have the completion $L_v$ contains $\sqrt{abc}$ for any $v \in V_L$, in particular $abc \in L^{\times}/(L^{\times})^2$ so that $\langle 1,-a,-b,c \rangle \cong \langle 1,-a,-b,ab \rangle$.
+This is the quadratic form associated to $(\frac{a,b}{L})$, and it represents 0 (as $L_v$ is either $\R, \C$ or is an extension of some $F_v$ where we know it is isotropic) so that $(\frac{a,b}{L})$ splits (by \Cref{theo:splitting} again).
+Then $\langle 1,-a,-b,ab \rangle \cong \langle 1,-a, -b, c\rangle$ splits over the global field $ L$ which from the same theorem on splitting says $\langle 1,-a, -b, c\rangle$ is indeed isotropic. \newline 
+
+
+\indent $n = 5:$ Let $f = g - h$, where $g = a_1 X_1^2 + a_2 X_2^2$ and $h = a_3 X_3^2 + \dots a_nX_n^2$.
+Then there is a finite subset $S \subset V$ such that $h$ is isotropic on $F_j$ for $j \in V - S$ by \Cref{lifting-up} (we can take $S$ to be the equivalence classes consisting of the archimidean norms, those primes over 2, and any primes dividing a coefficient of $h$).
+For any $s \in S$, as $f = g - h$ is isotropic in $F_s$ there is some $x_s \in F_s$ such that $g,h$ both represent $s$. 
+By the Approximation Theorem (\cite{ANT}, II.3.4) we can find $x \in F$ such that $||x -x_s|| < \epsilon_s$ (here we use the multiplicative valuatino) for all $s$ and arbitrarily small $\epsilon_s$.
+As the group of squares in each $F_s$ is open (by \Cref{open}) there exist small enough $\epsilon'_s$ such that $x/x_s\ in (F_s^{\times})^2$ whenever $||x - x_s|| < \epsilon_s$ for all $s$.
+However, note that that for $x_1, x_2 \in F$ that
+\[||g(x_1, x_2)|| \leq a_1||x_1||^2 + a_2 ||x_2||^2\]
+then from the previous constructions, by constraining small enough we can find $x_1, x_2 \in F$ such that $||g(x_1, x_2) - x_s|| < \epsilon_s$ for all $s$ so that $g(x_1, x_2)/x_s \in (F_s^{\times})^2$.
+To show that $f = g -h$ is isotropic it then suffices to show that $h$ represents $\alpha$.
+For each $s \in S$ we know $h$ represents $x_s$, since $g(x_1, x_2)/x_s \in  (F_s^{\times})^2$ then $h$ also represents $g(x_1, x_2)$.
+For $v \in V-S$, $h$ is isotropic so represents all of $F_v^{\times}$, in particular $g(x_1, x_2)$ as well. (\Cref{prop:isotropic-hyperbolic}).
+So we have reduced our problem to showing that the quadratic form $g(x_1,x_2)Z^2 - h$ represents 0 if and only if it does at each $F_v, v \in V$.
+This is a quadratic form of rank $n -1$ and so reduces to an inductive hypothesis (the base case is when we proved the Hasse Minkowiski Theorem for $n = 4$), completing the proof.
+
 \end{proof}
 
-\begin{corollary}[representing non-zero elements]
-	
+\begin{corollary}
+	A quadratic form $f$ over $F$ represents some $a \in F^{\times}$ if and only if $f$ represents $a$ over each $F_v, v \in V$.
 \end{corollary}
 
+\begin{proof}
+	Apply the Hasse-Minkowksi Theorem to the form $f - aZ^2$.
+\end{proof}
 
 \section{Selmer's Example}
 
