@@ -77,80 +77,6 @@
 \todo{add brief introduction to local/global principles}
 \todo{cite theorems after I say what they do}
 
-\section{Background}
-
-Here $K$ will always denote a finite extension of $\Q_p$ (in our case we are interested in the completion of a number field at a nonzero prime). Let $\mc{O}_K$ denote its corresponding discrete valuation ring with maximal ideal $\mk{m}$ and residue field $k$.
-
-
-\begin{proposition}
-	For any family of polynomials $f^{(i)} \in \mc{O}_K [X_1, \dots, X_m]$,
-	Then the following are equivalent
-	\begin{enumerate}
-		\item The $f^{(i)}$ have a common zero in $(\mc{O}_K)^m$.
-		\item For all $n > 1$ the polynomials $f^{(i)} (\bmod{\,\mk{m}^n})$ have a common zero in 
-	$(\mc{O}_K/\mk{m}^n)^m$
-\end{enumerate}	
-\end{proposition}
-
-\begin{proof}
-	1 implies 2 by simply taking the simple zero modulo $\mk{m}^n$.
-	Since $K$ is a finite extension of $\Q_p$, its residue field is finite, and so $\mc{O}_K / \mk{m}^n$ is finite for each $n > 1$.
-	Therefore, to show 2 implies 1 it suffices to show that if $ \dots \to D_n \to D_{n-1} \to \dots \to D_1$ is a projective system, where each $D_i$ is finite and nonempty, then $D = \varprojlim D_i$ has a solution, by taking the limit over solutions mod $\mk{m}^n$.
-	Denoting $D_{n,p}$ the image of $D_{n+p}$ in $D_n$, then they form a decreasing filtration of subsets of $D_{n}$. As $D_n$ is finite these must stabilize to some subset $E_n$. The map $D_{n+1} \to D_n$ carries $E_{n+1} \to E_n$ and are surjective, from definition.
-	A solution can then always be found in $D$ by inductively lifting one among the $E_i$.
-\end{proof}
-
-\begin{remark}
-	If $f^{(i)}$ are all homogeneous polynomials, note the nonzero solutions in $(\mc{O}_K)^m$ defined up to a scalar. 
-	So if $(x_1, \dots, x_m)$ is a nonzero solution in $K^m$, then choosing an element $y$ such that $v(y) = \text{min}(v(x_1), \dots, v(x_m))$, we have that $(y^{-1} x_1, \dots, y^{-1} x_m)$ is another solution (now guaranteed to be in $\mc{O}_K^m$) such that one coefficient is invertible in $\mc{O}_K$. 
-	We will call such a solution \textit{primitive} (following \cite{ACIA}), similarly defined in $\mc{O}_K/\m^n$.
-\end{remark}
-
-\begin{corollary}
-	If $f^{(i)} \in \mc{O}_K [X_1, \dots, X_m]$ are all homogeneous, then the following are equivalent
-	\begin{enumerate}
-		\item The $f^{(i)}$ have a common non-zero in $(K)^m$.
-		\item The $f^{(i)}$ have a common primitive zero in $(\mc{O}_K)^m$.
-		\item For all $n > 1$ the polynomials $f^{(i)} (\bmod{\,\mk{m}^n})$ have a common primitive zero in 
-	$(\mc{O}_K/\mk{m}^n)^m$
-\end{enumerate}	
-\end{corollary}
-
-
-
-\subsection{The Multiplicative Group of $K$}
-
-Following the notation of \cite{LF} we will denote $U_K^{(i)} = 1 + \m_K^i$, which defines a filtration of $U_K^{(0)} = U_K$ the group of invertible elements of $K$. 
-By Proposition 6 in \cite{LF} IV.2, we have that $U_K^{(0)}/U_K^{(1)}\cong k^*$, and $U_K^{(i)}/U_K^{(i+1)} \cong \m^i/\m^{i+1}$, which is (non-canonically) isomorphic to the additive group of the residue field $k$.
-If $|k| = p^f$ we have by induction that $U_K^{(1)}/U_K^{(n)}$ is of order $p^{f(n-1)}$.
-
-\begin{lemma}\label{lemm:exact-seq-splitting}
-	An exact sequence  $0 \to A \to E \to B \to 0$ of commutative groups, with the orders $|A|$ and $|B|$ relatively prime must split.
-In the decomposition $E \cong A \oplus B$, $B$ must also be unique, being those $x \in E$ with order dividing $|B|$.
-\end{lemma}
-
-\begin{proof}
-	We outline a proof given in \cite{ACIA}, II.3.
-Uniqueness of $B$ follows easily, as any other subgroup $B'$ of $E$ isomorphic to $B$ must be annihilated by $|B|$ so $B' \subset B$ and so must be equal as they are finite. 
-And using the fact  $|A|, |B|$ are relativily prime, \todo{Fill out }
-\end{proof}
-
-\begin{proposition}
-	We have $U_K \cong \mu_{(p^f - 1)} \times U_K^{(1)}$, where $\mu_{(p^f - 1)}$ are the $(p^f - 1)$st roots of unity in $K$.
-\end{proposition}
-
-\begin{proof}
-	\todo{Take limit using above propositions}
-\end{proof}
-
-
-
-
-
-
-
-
-\newpage
 
 
 \section{Quadratic Spaces}
@@ -828,7 +754,7 @@ This allows us to lift solutions mod $\m^n$ in many ways as we describe using th
 
 \begin{theorem}\label{theo:hensel}
 	Let $f \in \mc{O}_K[X_1, \dots, X_m]$, $x = (x_i) \in (\mc{O}_K)^m$	with $n,k \in \Z$ satisfying $0 \leq 2k < n$ and $0 \leq j \leq m$ an index such that
-	\[f(x) \equiv 0\pmod{\m^{n+1}},\quad v( \frac{\partial f}{ \partial X_j}(x)) = k\]
+	\[f(x) \equiv 0\pmod{\m^{n}},\quad v( \frac{\partial f}{ \partial X_j}(x)) = k\]
 	Then $f$ has a zero $y \in (\mc{O}_K)^m$ congruent to $x \pmod{\m^{n-k}}$
 \end{theorem}
 \begin{proof}
@@ -986,7 +912,7 @@ Then $\langle 1,-a,-b,ab \rangle \cong \langle 1,-a, -b, c\rangle$ splits over t
 Then there is a finite subset $S \subset V$ such that $h$ is isotropic on $F_j$ for $j \in V - S$ by \Cref{lifting-up} (we can take $S$ to be the equivalence classes consisting of the archimidean norms, those primes over 2, and any primes dividing a coefficient of $h$).
 For any $s \in S$, as $f = g - h$ is isotropic in $F_s$ there is some $x_s \in F_s$ such that $g,h$ both represent $s$. 
 By the Approximation Theorem (\cite{ANT}, II.3.4) we can find $x \in F$ such that $||x -x_s|| < \epsilon_s$ (here we use the multiplicative valuatino) for all $s$ and arbitrarily small $\epsilon_s$.
-As the group of squares in each $F_s$ is open (by \Cref{open}) there exist small enough $\epsilon'_s$ such that $x/x_s\ in (F_s^{\times})^2$ whenever $||x - x_s|| < \epsilon_s$ for all $s$.
+As the group of squares in each $F_s$ is open (by \Cref{open}) there exist small enough $\epsilon'_s$ such that $x/x_s \in (F_s^{\times})^2$ whenever $||x - x_s|| < \epsilon_s$ for all $s$.
 However, note that that for $x_1, x_2 \in F$ that
 \[||g(x_1, x_2)|| \leq a_1||x_1||^2 + a_2 ||x_2||^2\]
 then from the previous constructions, by constraining small enough we can find $x_1, x_2 \in F$ such that $||g(x_1, x_2) - x_s|| < \epsilon_s$ for all $s$ so that $g(x_1, x_2)/x_s \in (F_s^{\times})^2$.
@@ -1009,6 +935,35 @@ This is a quadratic form of rank $n -1$ and so reduces to an inductive hypothesi
 \section{Selmer's Example}
 
 
+Suppose we are looking for some solution to an equation over the integers. 
+If one suspects there are none, a natural first direction is to look mod $p^n$ for some prime $p$ (or in $\Z_p$) and if there are no solutions there we can conclude there are no "global" solutions.
+If this is not possible for any $p$, one may begin to believe that there should be a global solution.
+For the case of quadratic forms, this was answered affirmatively as the Hasse-Minkowksi theorem in the previous section.
+However, for equations of higher degree there need not be such a local-global principle, one famous example which we cover in this section is
+\[f(X,Y,Z) = 3X^3 + 4Y^3 + 5Z^3\]
+which we will show has nontrivial solutions in each $\Q_p$ (and $\R$), but no nontrivial solution over $\Q$, we will roughly follow \todo{Citee}.
+
+\subsection{Local Solutions}
+
+It is easy to find nontrivial solutions over $\R$, for example we have $f(0, \sqrt[3]{ \frac{5}{3}}, -1) = 0$.
+We now show how one can construct solutions over each $\Q_p$.
+The main idea is to use the variant of Hensel's lemma \Cref{theo:hensel} introduced previously, which allows us to lift solutions mod in $\Z/p^n\Z$ where our life is easier.
+We will need to do some casework depending on the prime $p$. \newline
+
+\noindent $p = 3:$ We work in $\Z/27 \Z$, setting $X = 0, Z = -1$ we wish to find a zero to $g(Y) = 4Y^3 - 5$ where , for which one verifies that $Y = 2$ works.
+Now $v_3(g'(2)) = v_3(48) = 1$ while $v_3(g(2)) = v_3(27) = 3$ so it satisifies the requirements of $\Cref{theo:hensel}$ and lifts to a solution $a$ of $4Y^3 - 5$ over $\Q_3$.
+Then $f(0,a,-1) = 0$ is a solution over $\Q_3$. (Note the factor of $3$ in $g'$ is why we needed to work over $\Z/27 \Z$ instead of a lower power of 3). \newline
+
+\noindent $p = 5:$ We work in $\Z/5\Z$, setting $Y = 1$ we are looking for a zero of $g(X) = 3X^3 + 4$, for which $Y = 3$ works.
+Now $v_5(g'(Y)) = v_5(81) = 0$, so our solution lifts from Hensel's lemma to a solution $a$ over $\Q_5$, in which case $f(a, 1, 0) = 0$ is a solution over $\Q_5$.\newline
+
+\noindent Now suppose that $p \neq 3,5$ is a prime, such that $3$ is a cube in $\Z/p\Z$.
+Then this zero $c$ of $g(X) = X^3 - 3$ in $\Z/p\Z$ always lifts to a cube root of 3 $a$ over $\Q_p$ by Hensel's as $v_p(g'(a)) = 0$ as $p \neq 3$, in which case $f(a, -1, -1)$ is a solution over $\Q_p$. \newline
+
+\noindent The only primes we need to consider now are those $p \neq 3,5$ where $3$ is not a cube.
+Note that we must have $p \equiv 1 \bmod {3}$, as otherwise $(\Z/p\Z)^{\times}$ is cyclic of order relatively prime to 3, in which case the cube map is surjective so every number (hence 3) would be a cube.
+
+\subsection{Global Solutions}
 
 \newpage
 
