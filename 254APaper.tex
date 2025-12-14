@@ -680,7 +680,7 @@ We now define the Hilbert symbol, and give an equivalence of its equality with w
 		\item $A$ is not a division algebra.
 		\item $A$ is isotropic as a quadratic space.
 		\item $A$ is hyperbolic as a quadratic space. ($A \cong \mb{H} \perp \mb{H}$)
-		\item We have $(a,b) = 1$ 
+		\item $(a,b) = 1$ 
 	\end{enumerate}
 	
 \end{theorem}
@@ -720,7 +720,7 @@ We now define the Hilbert symbol, and give an equivalence of its equality with w
 
 Here $K$ will always denote a finite extension of $\Q_p$ (in our case we are interested in the completion of a number field at a nonzero prime). 
 We will fix notation for the rest of this section here.
-$\mc{O}_K$ willdenote its corresponding discrete valuation ring with maximal ideal $\mk{m}$ and residue field $k$, and $\pi$ any uniformizer.
+$\mc{O}_K$ willdenote its corresponding discrete valuation ring with maximal ideal $\mk{m}$ and residue field $k$, and $\pi$ a choice of an uniformizer.
 \newline 
 
 	\indent If $f^{(i)} \in \mc{O}_K[X_1, \dots, X_n]$ are are all homogeneous polynomials (say a quadratic form) , note any nonzero solutions in $(\mc{O}_K)^m$ defined up to a scalar. 
@@ -1009,7 +1009,7 @@ Since $|N_{Q}^{Q(\alpha)}(\alpha - 2)| = |-2| = 2$, $|N_{Q}^{Q(\alpha)}(\alpha -
 Now $|N_{Q}^{Q(\alpha)}(\alpha+1)| = 7$ so similarly $(\alpha + 1) = \mk{p}_7$, and $|N_{Q}^{Q(\alpha)}(\alpha + 2)| = 14, N_{Q}^{Q(\alpha)}(\alpha + 4)| = 70$ so $(\alpha + 2) = \mk{p}'_7 \mk{p}_2$ and $(\alpha + 4) = \mk{p}''_7\mk{p}_2\mk{p}_5$.
 We are now in good position to establish the following proposition.
 
-\begin{proposition}
+\begin{proposition}\label{PID}
 	$\Q(\alpha)$ has class number 1, in particular $\Z[\alpha]$ is a PID.
 \end{proposition}
 
@@ -1028,7 +1028,7 @@ We are now in good position to establish the following proposition.
 
 As a final prerequisite we establish some facts regarding the group of units of $\Z[\alpha]$.
 
-\begin{proposition}
+\begin{proposition}\label{units}
 	The units in $\Z[\alpha]$ (modulo the cubed units) have as representatives $(1 - 6\alpha + 3\alpha^2)^k$ for $k = 0,1,2$.	
 \end{proposition}
 
@@ -1057,13 +1057,13 @@ and there is a clear bijection between rational solutions of Selmer's equation a
 \end{equation}
 
 
-Focusing on the latter equation, for any nontrivial solution $(x,y,z)$ we may by its homogeneity multiple through by coefficient and assume that \textbf{$x,y,z$ are integers}.
-Note that $6,10$ are not cubes, so if some prime dividing two of $(x,,y,z)$ it would have to divide the other.
+Focusing on the latter equation, for any nontrivial solution $(X,Y,Z)$ we may by its homogeneity multiple through by coefficient and assume that \textbf{$X,Y,Z$ are integers}.
+Note that $6,10$ are not cubes, so if some prime dividing two of $(X,,Y,Z)$ it would have to divide the other.
 Dividing through we may assume that \textbf{$x,y,z$ are relatively prime}.
-If either one of $x,y,z$ were zero, we would have equality of the two reamining cubes, but as $6,10$ are again not cubes this implies the remaining two are also zero, so \textbf{$x,y$ and $z$ must all be nonzero}.
-Looking modulo 2 we have that \textbf{$x$ must be even}.
-If $y$ or $z$ were also even, the other must be as 2 divides 6 and 10 only once, so as they are relatively prime we have that \textbf{$x,y$ are both odd}.
-Similarly arguing for the primes 3 and 5 we also conclude that \textbf{$x,z$}  are not divisibly by 3 and \textbf{$x,y$ are not divisible by $5$}. \newline
+If either one of $X,Y,Z$ were zero, we would have equality of the two reamining cubes, but as $6,10$ are again not cubes this implies the remaining two are also zero, so \textbf{$X,Y$ and $Z$ must all be nonzero}.
+Looking modulo 2 we have that \textbf{$X$ must be even}.
+If $Y$ or $Z$ were also even, the other must be as 2 divides 6 and 10 only once, so as they are relatively prime we have that \textbf{$X,Y$ are both odd}.
+Similarly arguing for the primes 3 and 5 we also conclude that \textbf{$X,Z$}  are not divisibly by 3 and \textbf{$X,Y$ are not divisible by $5$}. \newline
 
 \indent Once again denoting $\alpha = \sqrt[3]{6}$ we may factor \Cref{eq1} as 
 \begin{equation}\label{eq2}
@@ -1071,7 +1071,51 @@ Similarly arguing for the primes 3 and 5 we also conclude that \textbf{$x,z$}  a
 \end{equation}
 viewing the above as (principal) ideals in $\Z[\alpha]$.\\
 
-We now argue that 
+We claim that for some ideal $\mk{q}$ that the principal ideal $(X + Y\alpha)$ can be expressed as 
+\begin{equation}\label{eq3}
+	(X + Y\alpha) = \mk{p}_2 \mk{p}_5 \mk{q}^3 = (\alpha - 2)(\alpha -1) \mk{q}^3
+\end{equation}
+Examining \Cref{eq2}, we know that $(10) = (2)(5) \mk{p}_2^3 \mk{p}_5 \mk{p}_{25}$ divides $(X+Y\alpha )(X^2 - XY\alpha + Y^2 \alpha^2)$.\newline
+\indent Since $(\alpha)^3 = (6) = \mk{p}_2^3 (3)$ we have $\mk{p}_2 | \alpha$, and by assumption $X$ is even so $\mk{p}_2 | X$ as well, so $\mk{p}_2 | (X + Y\alpha)$, and $\mk{p}_2^2 | (X^2 - XY\alpha + Y^2 \alpha^2)$. \newline
+\indent Looking at $X^3 + 6Y^3 = 10Z^3$ mod 5 we have $X^3  \equiv -Y^3 \pmod{5}$, and as mentioned, since $5 \neq 1 \pmod{3}$ cubing is bijective on $\Z/5\Z$ so this implies that $X \equiv -Y \pmod{5}$.
+Since $\mk{p}_5 = (\alpha - 1)$ we also have $\alpha \equiv 1$ in $\Z[\alpha]/\mk{p}_5 \cong \Z/5\Z$.
+Hence we have in $\Z[A]/\mk{p}_5$ that
+\[X + Y\alpha \equiv X + Y \equiv 0 \pmod{5} \]
+so $\mk{p}_5 | X + Y\alpha $.
+If $\mk{p}_{25}$ also dividing $(X + Y\alpha)$ then $5 = \mk{p}_5 \mk{p}_{25}$ would as well, implying that $X,Y$ are divisible by 5 which contradicts one of our original assumptions.
+So $\mk{p}_{25} | (X^2 - XY\alpha + Y^2 \alpha^2)$. \newline
+\indent We have established that 
+\[(X + Y\alpha) = \mk{p}_2 \mk{p}_5 \mk{q}, \quad (X^2 - XY\alpha + Y^2 \alpha^2) = \mk{p}_2^2 \mk{p}_{25}\mk{q}' \]
+for ideals $\mk{q}$ and $\mk{q}'$ such that $\mk{q}\mk{q}' = (Z)^3$.
+Since $Z$ was assumed odd we know that $\mk{p}_2$ does not divide $Z$, and hence doesn't divide $\mk{q}$ and $\mk{q}'$ as well.
+We claim that, other than $\mk{p}_2$, $(X + Y\alpha)$ and $(X^2 - XY\alpha + Y^2 \alpha^2)$ share no common prime factors, so by unique factorization of ideals we would have $\mk{q} = \alpha^3, \mk{q}' = \alpha'^3$ are cubes, which would establish our claim in \Cref{eq3}.\newline
+
+\indent If there were some $\mk{p} \neq \mk{p}_2$ such that $\mk{p} | (X + Y\alpha)$ and $\mk{p}|(X^2 - XY\alpha + Y^2 \alpha^2)$ it would also divide $(X + Y\alpha)^2 - (X^2 - XY\alpha + Y^2 \alpha^2) = (3)(X)(Y)(\alpha)$.
+We'll show $\mk{p}$ cannot divide $(3)(X)(Y)(\alpha)$.\newline
+\indent First note that $\mk{p} \nmid (3)$, as if it did divide $(3)$ it doesn't lie over 2 or 5 and so $\mk{p} \nmid (10)$, which from $\Cref{eq2}$ we have $\mk{p}|Z^3$, but one of our original observations was that $Z$ was not divisible by 3, hence relatively prime to it. \newline
+\indent If $\mk{p} | (X)$, then $\mk{p}|(Y)(\alpha)$ as $\mk{p}|(X + Y\alpha)$, but as $X$ and $Y$ are relatively prime we would have $\mk{p}|\alpha$ (The same argument shows that $\mk{p}\nmid(Y)$).
+However, $(\alpha)^2 = (6) = (2)(3)$, as we already established $\mk{p}\nmid (3)$ we would have $\mk{p} = \mk{p}_2$ a contradiction, so $\mk{p} \nmid (X)$, so such an $\mk{p}$ cannot exist, which as remarked implies our claim in $\Cref{eq3}$. \newline
+
+\indent As a result, for some unit $\mu$ we have an equality
+\[X + Y\alpha = (\alpha - 2)(\alpha -1) \mk{q}^3 \mu\]
+Absorbing any cube factor of $\mu$ in $\mk{q}^3$, we may assume its cube free so 
+\[\mu = (1 - 6\alpha + 3\alpha^2)^k = \frac{((2 - \alpha)^{3})^k}{2^k}\]
+substituting this back in (absorbing $2 - \alpha)^{3})^k$ into $\mk{q}^3$) and multiplying by $2^k$ we have
+\begin{equation}\label{eq4}
+2^kX + 2^kY\alpha = (\alpha - 2)(\alpha - 1) \mk{q}'^3
+\end{equation}
+
+for some ideal $\mk{q}'^3$.
+Letting $\mk{q} = A + B\alpha + C\alpha^2$ for $A,B,C \in \Z$ (we know its principal by 
+\Cref{PID}), upon expanding out the above equation and equating the coefficients of $\alpha^2$ we obtain
+\[0 = A^3 + 6B^3 + 36C^3 + 36ABC -9(A^2B + 6AC^2 + 6B^2C) + 6(AB^2 + A^2C + 6BC^2)\]
+Every factor other than $A^3$ above is divisible by 3, so looking mod 3 we must have $A$ is divisible by $3$.
+Then $9$ divides every term above except $6B^3$ so we similarly obtain that $3$ divides $B$.
+Once again, we see that 27 divides every factor above except $36C^2$, so $3$ then divides $C$.
+By the homogeneity of the above equation, $(A/3, B/3, C/3)$ is another valid integer solution, but we may indefinitely continue this proces so necessarily $A = B = C = 0$.
+But be $\Cref{eq4}$ this implies $(X + Y\alpha) = 0$ a contradiction.
+So there cannot be any nontrivial solutions to $X^3 + 6Y^3 = 10Z^3$ and hence no nontrivial solutions for Selmer's equation over $\Q$.
+
 
 \newpage
 
